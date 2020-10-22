@@ -10,6 +10,41 @@ package mavi.ort.edu.uy.src.models;
  * @author vicentebermudez
  */
 public class Disc {
-    public Color color;
-    public Player player;
+    private Color color;
+    private Player player;
+
+    public String getConsoleColor() {
+        return color.getConsoleColor();
+    }
+    
+    /**
+     * @return the color
+     */
+    public Color getColor() {
+        return color;
+    }
+
+    /**
+     * @param color the color to set
+     */
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    /**
+     * @return the player
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
+    /**
+     * @param player the player to set
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    
+    
+        
 }
