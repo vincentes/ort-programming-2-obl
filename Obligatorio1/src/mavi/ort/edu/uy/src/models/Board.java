@@ -15,6 +15,39 @@ import mavi.ort.edu.uy.src.utils.PrettyPrint;
 public class Board {
     public Disc[][] discs = new Disc[8][8];
     
+    private static Disc randomDisc() {
+        Disc disc = new Disc();
+        if(Math.random() < 0.5) {
+            disc.setColor(Color.BLUE);
+        } else {
+            disc.setColor(Color.RED);
+        }
+        return disc;
+    }
+    
+    public Disc[][] getRandomBoard() {
+        Disc[][] discs = new Disc[8][8];
+        for(int i = 0; i < discs.length; i++) {
+            for(int j = 0; j < discs[i].length; j++) {                
+                Disc newDisc = new Disc();
+                if(i == 0 || i == discs.length - 1) {
+                    if(j == 0 || j == discs[i].length - 1) {
+                        continue;
+                    }
+
+                    discs[i][j] = randomDisc();
+                } else {
+                    if(j == 0) {
+                        discs[i][j] = randomDisc();
+                    } else if(j == discs[i].length - 1) {
+                        discs[i][j] = randomDisc();
+                    }
+                }
+            }
+        }
+        return discs;
+    }
+    
     public Disc[][] getDefaultBoard() {
         Disc[][] discs = new Disc[8][8];
         for(int i = 0; i < discs.length; i++) {
