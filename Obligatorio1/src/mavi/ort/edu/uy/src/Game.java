@@ -8,12 +8,13 @@ package mavi.ort.edu.uy.src;
 import java.util.List;
 import mavi.ort.edu.uy.src.models.Board;
 import mavi.ort.edu.uy.src.models.Match;
+import mavi.ort.edu.uy.src.models.Player;
 
 /**
  *
  * @author vicentebermudez
  */
-public class System {
+public class Game {
 
     public List<Match> matches;
     public List<Player> players;
@@ -22,8 +23,8 @@ public class System {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Board b = new Board();  
-        b.print();
+        Board b = new Board();
+        b.print(b.getDefaultBoard());
     }
     
 }
