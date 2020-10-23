@@ -166,7 +166,7 @@ public class Board {
             
             Disc rightBorderDisc = discs[i][discs.length - 1];
             if(rightBorderDisc != null) {
-                PrettyPrint.print(" X ", rightBorderDisc.getConsoleColor());
+                PrettyPrint.print("X ", rightBorderDisc.getConsoleColor());
             } else {
                 System.out.print(" ");
             }
