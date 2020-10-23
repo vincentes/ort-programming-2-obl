@@ -13,6 +13,14 @@ public class Disc {
     private Color color;
     private Player player;
 
+    public Disc(Color color) {
+        this.color = color;
+    }
+
+    public Disc() {
+        
+    }
+       
     public String getConsoleColor() {
         return color.getConsoleColor();
     }
