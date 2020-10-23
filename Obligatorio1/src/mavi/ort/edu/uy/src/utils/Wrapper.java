@@ -13,31 +13,31 @@ import java.util.Scanner;
  */
 public class Wrapper {
 
-    public static int validateNumber(String warningMessage) {
+    public static int validateNumber(String inputMessage, String warningMessage) {
         Scanner input = new Scanner(System.in);
         int inputInt = 0;
         while (inputInt == 0) {
-            System.out.print("Ingreso: ");
+            System.out.print(inputMessage+" ");
             String inputStr = input.nextLine();
             if (inputStr.matches("\\d+")) {
                 inputInt = Integer.parseInt(inputStr);
             }else{
-                System.out.println(warningMessage);
+                System.out.println("\n"+warningMessage+"\n");
             }
         }
         return inputInt;
     }
 
-    public static String validateString(String warningMessage) {
+    public static String validateString(String inputMessage, String warningMessage) {
         Scanner input = new Scanner(System.in);
         String auxStr = null;
         while (auxStr == null) {
-            System.out.print("Ingreso: ");
+            System.out.print(inputMessage+" ");
             String inputStr = input.nextLine();
             if (inputStr.matches("\\w+\\.?")) {
                 auxStr = inputStr;
             }else{
-                System.out.println(warningMessage);
+                System.out.println("\n"+warningMessage+"\n");
             }
         }
         return auxStr;
