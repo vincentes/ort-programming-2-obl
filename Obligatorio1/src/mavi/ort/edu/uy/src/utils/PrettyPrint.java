@@ -13,6 +13,12 @@ import mavi.ort.edu.uy.src.constants.ConsoleColor;
  * @author vicentebermudez
  */
 public class PrettyPrint {
+    
+    public static void print(String message) {
+        System.out.print(ConsoleColor.RESET);
+        System.out.print(message);
+    }
+    
     public static void print(String message, String foreground) {
         System.out.print(foreground);
         System.out.print(message);
@@ -54,6 +60,8 @@ public class PrettyPrint {
     }
     
     public static void println(String message, String foreground, String background) {
+        System.out.print(foreground);
+        System.out.print(background);
         System.out.print(foreground);
         System.out.print(background);
         System.out.println(message);
