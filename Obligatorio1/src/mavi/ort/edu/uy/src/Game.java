@@ -5,7 +5,7 @@
  */
 package mavi.ort.edu.uy.src;
 
-import java.util.InputMismatchException;
+import mavi.ort.edu.uy.src.utils.Wrapper;
 import java.util.Scanner;
 import mavi.ort.edu.uy.src.models.Player;
 
@@ -25,7 +25,6 @@ public class Game {
     }
 
     public static void menuGame() {
-        Scanner input = new Scanner(System.in);
         int option = 0;
         while (option != 4) {
             System.out.println("-- Grupos --");
@@ -34,12 +33,7 @@ public class Game {
             System.out.println("3- Replicar partida");
             System.out.println("4- Salir");
             System.out.println("--        --");
-            String optionStr = input.nextLine();
-            if (optionStr.matches("\\d+")) {
-                option = Integer.parseInt(optionStr);
-            } else {
-                continue;
-            }
+            option = Wrapper.validateNumber("Solo el ingreso de números es permitido");
             switch (option) {
                 case 1:
                     System.out.println("Agregar jugador");
@@ -56,17 +50,10 @@ public class Game {
                     System.out.println("Está seguro que desea salir?");
                     System.out.println("1- Si");
                     System.out.println("2- No");
-
-                    optionStr = input.nextLine();
-                    if (optionStr.matches("\\d+")) {
-                        option = Integer.parseInt(optionStr);
-                        if (option == 1) {
-                            System.out.println("Ha salido del juego con éxito");
-                            option = 4;
-                        }
-                    } else {
-                        option = 0;
-                        continue;
+                    option = Wrapper.validateNumber("Solo el ingreso de números es permitido");
+                    if (option == 1) {
+                        System.out.println("Ha salido del juego con éxito");
+                        option = 4;
                     }
                     break;
                 default:
@@ -77,11 +64,13 @@ public class Game {
     }
 
     public static void addPlayer() {
-        Scanner input = new Scanner(System.in);
+        int age = 13;
         System.out.println("Ingrese nombre:");
-        String name = input.nextLine();
+        String name = Wrapper.validateString("El nombre solo puede contener letras y números");
         System.out.println("Ingrese edad:");
-        int age = input.nextInt();
+        while (age > 80 && age < 12) {
+            age = Wrapper.validateNumber("Solo el ingreso de números es permitido");
+        }
         Player newPlayer = new Player(name, age);
         persistence.addPlayer(newPlayer);
     }
