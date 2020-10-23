@@ -12,7 +12,7 @@ import mavi.ort.edu.uy.src.constants.ConsoleColor;
  * @author vicentebermudez
  */
 public enum Color {
-    RED(ConsoleColor.RED), BLUE(ConsoleColor.GREEN);
+    RED(ConsoleColor.RED), BLUE(ConsoleColor.BLUE);
     
     private String consoleColor;
     
