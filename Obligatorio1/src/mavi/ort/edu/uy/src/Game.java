@@ -6,7 +6,6 @@
 package mavi.ort.edu.uy.src;
 
 import mavi.ort.edu.uy.src.utils.Wrapper;
-import java.util.Scanner;
 import mavi.ort.edu.uy.src.models.Player;
 
 /**
