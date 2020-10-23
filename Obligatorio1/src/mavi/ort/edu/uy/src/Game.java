@@ -5,6 +5,11 @@
  */
 package mavi.ort.edu.uy.src;
 
+import java.util.List;
+import mavi.ort.edu.uy.src.models.Board;
+import mavi.ort.edu.uy.src.models.Color;
+import mavi.ort.edu.uy.src.models.Disc;
+import mavi.ort.edu.uy.src.models.Match;
 import mavi.ort.edu.uy.src.utils.Wrapper;
 import mavi.ort.edu.uy.src.models.Player;
 

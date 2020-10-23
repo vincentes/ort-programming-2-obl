@@ -27,6 +27,9 @@ public class Board {
     
     public Disc[][] getRandomBoard() {
         Disc[][] discs = new Disc[8][8];
+        int redDiscs = 0;
+        int blueDiscs = 0;
+        int discLimitEach = 12;
         for(int i = 0; i < discs.length; i++) {
             for(int j = 0; j < discs[i].length; j++) {                
                 Disc newDisc = new Disc();
@@ -35,7 +38,24 @@ public class Board {
                         continue;
                     }
 
-                    discs[i][j] = randomDisc();
+                    if(redDiscs < discLimitEach && blueDiscs < discLimitEach) {
+                        discs[i][j] = randomDisc();
+                        if(discs[i][j].getColor() == Color.BLUE) {
+                            blueDiscs++;
+                        } else {
+                            redDiscs++;
+                        }
+                    } else {
+                        if(redDiscs >= discLimitEach) {
+                            discs[i][j] = new Disc(Color.BLUE);
+                            blueDiscs++;
+                        } else {
+                            discs[i][j] = new Disc(Color.RED);
+                            redDiscs++;
+                        }
+                    }
+                    
+
                 } else {
                     if(j == 0) {
                         discs[i][j] = randomDisc();
@@ -93,7 +113,7 @@ public class Board {
         return discs;
     }
     
-    public void print(Disc[][] discs) {
+    public static void print(Disc[][] discs) {
         System.out.println("    1 2 3 4 5 6");
         System.out.print("  ");
         for(int j = 0; j < discs[j].length - 1; j++) {
@@ -122,7 +142,7 @@ public class Board {
             if(borderDisc != null) {
                 PrettyPrint.print(" X", borderDisc.getConsoleColor());
             } else {
-                System.out.print(" ");
+                System.out.print("  ");
             }
             // this.printDisc(borderDisc);
             int discsLength = discs[i].length;
