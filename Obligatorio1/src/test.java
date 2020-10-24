@@ -43,8 +43,7 @@ public class test {
         discs[6][4] = redDisc;
         discs[6][5] = redDisc;
         discs[6][6] = redDisc;
-        */
-        
+         */
         //Tablero 2 Ganador: AZUL
         /*
         discs[1][3] = redDisc;
@@ -62,8 +61,7 @@ public class test {
         discs[6][2] = redDisc;
         discs[6][3] = redDisc;
         discs[6][6] = blueDisc;        
-        */
-        
+         */
         //Tablero 3 Ganador: EMPATE
         /*
         discs[1][3] = blueDisc;
@@ -81,8 +79,7 @@ public class test {
         discs[6][4] = blueDisc;
         discs[6][5] = blueDisc;
         discs[6][6] = redDisc ;
-        */
-        
+         */
         //Tablero 4 Ganador: ROJO
         /*
         discs[1][2] = redDisc;
@@ -103,8 +100,7 @@ public class test {
         discs[5][6] = blueDisc;
         discs[6][3] = blueDisc;
         discs[6][4] = redDisc;
-        */
-        
+         */
         //Tablero 5 Ganador: ROJO
         /*
         discs[1][1] = redDisc;
@@ -127,8 +123,7 @@ public class test {
         discs[4][2] = blueDisc;
         discs[4][6] = blueDisc;
         discs[5][2] = blueDisc;
-        */
-        
+         */
         //Tablero 6 Ganador: EMPATE
         /*
         discs[1][1] = redDisc;
@@ -152,8 +147,7 @@ public class test {
         discs[4][4] = blueDisc;
         discs[5][3] = blueDisc;
         discs[5][4] = blueDisc;
-        */
-        
+         */
         Board.print(discs);
         getWinner(discs);
     }
@@ -227,7 +221,7 @@ public class test {
         Color winnerColor;
 
         String[] currencies = finalResult.split("/");
-        
+
         int column = Integer.parseInt(String.valueOf(currencies[0].charAt(1)));
         int row = Integer.parseInt(String.valueOf(currencies[0].charAt(0)));
         Color colorAux = discs[row][column].getColor();
@@ -243,29 +237,27 @@ public class test {
 
         }
 
-        if(!absolutWinner){
+        if (!absolutWinner) {
             for (int i = 0; i < currencies.length; i++) {
-            column = Integer.parseInt(String.valueOf(currencies[i].charAt(1)));
-            row = Integer.parseInt(String.valueOf(currencies[i].charAt(0)));
-            if (currenciesLenght < currencies[i].length()) {
-                currenciesLenght = currencies[i].length();
-                winnerColor = discs[row][column].getColor();
-                if (winnerColor.equals(Color.RED)) {
-                    result = ResultCode.PLAYER_RED;
-                } else if (winnerColor.equals(Color.BLUE)) {
-                    result = ResultCode.PLAYER_BLUE;
+                column = Integer.parseInt(String.valueOf(currencies[i].charAt(1)));
+                row = Integer.parseInt(String.valueOf(currencies[i].charAt(0)));
+                if (currenciesLenght < currencies[i].length()) {
+                    currenciesLenght = currencies[i].length();
+                    winnerColor = discs[row][column].getColor();
+                    if (winnerColor.equals(Color.RED)) {
+                        result = ResultCode.PLAYER_RED;
+                    } else if (winnerColor.equals(Color.BLUE)) {
+                        result = ResultCode.PLAYER_BLUE;
+                    }
                 }
             }
-        }
-        }else{
+        } else {
             if (colorAux.equals(Color.RED)) {
-                    result = ResultCode.PLAYER_RED;
-                } else if (colorAux.equals(Color.BLUE)) {
-                    result = ResultCode.PLAYER_BLUE;
-                }
+                result = ResultCode.PLAYER_RED;
+            } else if (colorAux.equals(Color.BLUE)) {
+                result = ResultCode.PLAYER_BLUE;
+            }
         }
-        
-
         return result;
     }
 
