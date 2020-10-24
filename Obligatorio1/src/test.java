@@ -152,7 +152,7 @@ public class test {
         getWinner(discs);
     }
 
-    public static void getWinner(Disc[][] discs) {
+    public static ResultCode getWinner(Disc[][] discs) {
         String finalResult = "";
         String finalResultAux = "";
         for (int x = 1; x <= 6; x++) {
@@ -177,7 +177,7 @@ public class test {
                 }
             }
         }
-        System.out.println(defineWinnerFromResults(discs, finalResult));
+        return defineWinnerFromResults(discs, finalResult);
 
     }
 
