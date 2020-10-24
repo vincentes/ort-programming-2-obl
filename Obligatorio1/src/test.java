@@ -24,10 +24,10 @@ public class test {
 
         discs[0][1] = redDisc;
         discs[1][3] = redDisc;
+        discs[3][3] = redDisc;
         discs[3][4] = redDisc;
         discs[1][1] = redDisc;
         discs[3][1] = redDisc;
-        discs[3][3] = redDisc;
         discs[4][4] = redDisc;
         discs[5][5] = redDisc;
         discs[6][6] = blueDisc;
@@ -35,7 +35,6 @@ public class test {
         discs[2][1] = redDisc;
         discs[1][2] = redDisc;
         discs[3][2] = redDisc;
-        discs[3][3] = redDisc;
         discs[1][4] = redDisc;
         discs[4][5] = redDisc;
         discs[1][6] = blueDisc;
@@ -45,29 +44,17 @@ public class test {
         discs[4][3] = blueDisc;
         discs[5][1] = blueDisc;
         discs[5][2] = blueDisc;
+        discs[5][3] = blueDisc;
+        discs[6][1] = blueDisc;
 
-        /*
-        String finalresult = "11 12 32";
-        String[] currencies = finalresult.split(" ");
-        System.out.println(currencies[0].charAt(0));
-        */
+
         Board.print(discs);
         getWinner(discs);
-
-        // System.out.println(adjacentsIntersection("11 21 12","21 11 31"));
-        /*
-        String master = "011102223303";
-        String to_remove="22";
-
-        master = master.replace(to_remove, "");
-        // the above line replaces the t_remove string with blank string in master
-
-        System.out.println(master);
-         */
     }
 
     public static void getWinner(Disc[][] discs) {
         String finalResult = "";
+        String finalResultAux = "";
         for (int x = 1; x <= 6; x++) {
             for (int y = 1; y <= 6; y++) {
                 Disc currentDisc = discs[x][y];
@@ -83,14 +70,15 @@ public class test {
                             }
                         }
                     }
-                    if (results.length() > finalResult.length()) {
-                        finalResult = results;
+                    if (results.length() >= finalResultAux.length()) {
+                        finalResultAux = results;
+                        finalResult += finalResultAux + "/";
                     }
                 }
             }
         }
         System.out.println(defineWinnerFromResults(discs, finalResult));
-        
+
     }
 
     public static String adjacentsIntersection(String adjacentsPositions, String newAdjacentsPositions) {
@@ -129,16 +117,49 @@ public class test {
 
     public static ResultCode defineWinnerFromResults(Disc[][] discs, String finalResult) {
         ResultCode result = ResultCode.DRAW;
+        boolean absolutWinner = true;
+        Color winnerColor;
+
+        String[] currencies = finalResult.split("/");
         
-        int column = Integer.parseInt(String.valueOf(finalResult.charAt(1)));
-        int row = Integer.parseInt(String.valueOf(finalResult.charAt(0)));
-        
-        Color winner = discs[row][column].getColor();
-        if (winner.equals(Color.RED)) {
-            result = ResultCode.PLAYER_RED;
-        } else if (winner.equals(Color.BLUE)) {
-            result = ResultCode.PLAYER_BLUE;
+        int column = Integer.parseInt(String.valueOf(currencies[0].charAt(1)));
+        int row = Integer.parseInt(String.valueOf(currencies[0].charAt(0)));
+        Color colorAux = discs[row][column].getColor();
+
+        int currenciesLenght = currencies[0].length();
+
+        for (int x = 0; x < currencies.length; x++) {
+            column = Integer.parseInt(String.valueOf(currencies[x].charAt(1)));
+            row = Integer.parseInt(String.valueOf(currencies[x].charAt(0)));
+            if (colorAux != discs[row][column].getColor()) {
+                absolutWinner = false;
+            }
+
         }
+
+        if(!absolutWinner){
+            for (int i = 0; i < currencies.length; i++) {
+            column = Integer.parseInt(String.valueOf(currencies[i].charAt(1)));
+            row = Integer.parseInt(String.valueOf(currencies[i].charAt(0)));
+            if (currenciesLenght < currencies[i].length()) {
+                currenciesLenght = currencies[i].length();
+                winnerColor = discs[row][column].getColor();
+                if (winnerColor.equals(Color.RED)) {
+                    result = ResultCode.PLAYER_RED;
+                } else if (winnerColor.equals(Color.BLUE)) {
+                    result = ResultCode.PLAYER_BLUE;
+                }
+            }
+        }
+        }else{
+            if (colorAux.equals(Color.RED)) {
+                    result = ResultCode.PLAYER_RED;
+                } else if (colorAux.equals(Color.BLUE)) {
+                    result = ResultCode.PLAYER_BLUE;
+                }
+        }
+        
+
         return result;
     }
 
