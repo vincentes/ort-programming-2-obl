@@ -22,32 +22,138 @@ public class test {
         Disc redDisc = new Disc();
         redDisc.setColor(Color.RED);
 
-        discs[0][1] = redDisc;
+        //Tablero 1 Ganador: AZUL
+        /*
+        discs[1][2] = redDisc; 
+        discs[1][5] = redDisc;
+        discs[1][6] = blueDisc;
+        discs[2][1] = redDisc; 
+        discs[2][3] = blueDisc; 
+        discs[2][5] = blueDisc; 
+        discs[2][6] = blueDisc; 
+        discs[3][2] = redDisc; 
+        discs[3][3] = blueDisc; 
+        discs[3][5] = blueDisc; 
+        discs[3][6] = redDisc; 
+        discs[4][3] = blueDisc;
+        discs[4][4] = blueDisc;
+        discs[4][5] = blueDisc;
+        discs[5][4] = redDisc; 
+        discs[6][1] = redDisc;
+        discs[6][4] = redDisc;
+        discs[6][5] = redDisc;
+        discs[6][6] = redDisc;
+        */
+        
+        //Tablero 2 Ganador: AZUL
+        /*
         discs[1][3] = redDisc;
+        discs[2][1] = blueDisc ;
+        discs[2][3] = redDisc ;
+        discs[2][6] = blueDisc ;
+        discs[3][1] = redDisc ;
+        discs[3][4] = blueDisc;
+        discs[3][5] = blueDisc;
+        discs[3][6] = blueDisc;
+        discs[4][4] = blueDisc;
+        discs[4][6] = blueDisc ;
+        discs[5][2] = redDisc;
+        discs[5][6] = blueDisc;
+        discs[6][2] = redDisc;
+        discs[6][3] = redDisc;
+        discs[6][6] = blueDisc;        
+        */
+        
+        //Tablero 3 Ganador: EMPATE
+        /*
+        discs[1][3] = blueDisc;
+        discs[2][2] = redDisc;
+        discs[2][5] = blueDisc;
+        discs[3][2] = redDisc;
+        discs[3][3] = redDisc;
+        discs[3][5] = redDisc;
+        discs[4][1] = blueDisc;
+        discs[4][3] = redDisc;
+        discs[4][5] = blueDisc;
+        discs[5][3] = redDisc;
+        discs[5][4] = blueDisc;
+        discs[5][5] = blueDisc;
+        discs[6][4] = blueDisc;
+        discs[6][5] = blueDisc;
+        discs[6][6] = redDisc ;
+        */
+        
+        //Tablero 4 Ganador: ROJO
+        /*
+        discs[1][2] = redDisc;
+        discs[2][2] = redDisc;
+        discs[2][3] = blueDisc;
+        discs[2][4] = redDisc;
+        discs[2][6] = redDisc;
+        discs[3][2] = redDisc;
         discs[3][3] = redDisc;
         discs[3][4] = redDisc;
-        discs[1][1] = redDisc;
-        discs[3][1] = redDisc;
+        discs[3][6] = redDisc;
+        discs[4][2] = blueDisc;
         discs[4][4] = redDisc;
-        discs[5][5] = redDisc;
-        discs[6][6] = blueDisc;
-
+        discs[4][6] = blueDisc;
+        discs[5][2] = blueDisc ;
+        discs[5][3] = blueDisc;
+        discs[5][4] = redDisc;
+        discs[5][6] = blueDisc;
+        discs[6][3] = blueDisc;
+        discs[6][4] = redDisc;
+        */
+        
+        //Tablero 5 Ganador: ROJO
+        /*
+        discs[1][1] = redDisc;
         discs[2][1] = redDisc;
-        discs[1][2] = redDisc;
+        discs[2][2] = redDisc;
+        discs[2][4] = redDisc;
+        discs[2][5] = redDisc;
+        discs[2][6] = redDisc;
         discs[3][2] = redDisc;
-        discs[1][4] = redDisc;
-        discs[4][5] = redDisc;
-        discs[1][6] = blueDisc;
+        discs[3][3] = redDisc;
+        discs[3][4] = redDisc;
+        discs[3][5] = redDisc;
+        discs[5][3] = redDisc;
+        discs[5][4] = redDisc;
+        discs[5][5] = redDisc;
         discs[1][4] = blueDisc;
+        discs[1][5] = blueDisc;
+        discs[3][1] = blueDisc;
         discs[4][1] = blueDisc;
         discs[4][2] = blueDisc;
-        discs[4][3] = blueDisc;
-        discs[5][1] = blueDisc;
+        discs[4][6] = blueDisc;
         discs[5][2] = blueDisc;
+        */
+        
+        //Tablero 6 Ganador: EMPATE
+        /*
+        discs[1][1] = redDisc;
+        discs[2][1] = redDisc;
+        discs[3][1] = redDisc;
+        discs[4][1] = redDisc;
+        discs[5][1] = redDisc;
+        discs[6][1] = redDisc;
+        discs[1][5] = redDisc;
+        discs[3][4] = redDisc;
+        discs[5][5] = redDisc;
+        discs[6][3] = redDisc;
+        discs[6][5] = redDisc;
+        discs[1][6] = blueDisc;
+        discs[2][6] = blueDisc;
+        discs[3][6] = blueDisc;
+        discs[4][6] = blueDisc;
+        discs[5][6] = blueDisc;
+        discs[6][6] = blueDisc;
+        discs[3][3] = blueDisc;
+        discs[4][4] = blueDisc;
         discs[5][3] = blueDisc;
-        discs[6][1] = blueDisc;
-
-
+        discs[5][4] = blueDisc;
+        */
+        
         Board.print(discs);
         getWinner(discs);
     }
