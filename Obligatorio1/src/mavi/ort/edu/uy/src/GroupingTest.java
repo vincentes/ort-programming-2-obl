@@ -1,3 +1,5 @@
+package mavi.ort.edu.uy.src;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,7 +15,7 @@ import mavi.ort.edu.uy.src.models.ResultCode;
  *
  * @author matiassalle
  */
-public class test {
+public class GroupingTest {
 
     public static void main(String args[]) {
         Disc[][] discs = new Disc[8][8];
