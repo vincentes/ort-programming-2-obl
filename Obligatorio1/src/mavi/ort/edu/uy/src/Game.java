@@ -76,7 +76,7 @@ public class Game {
                                 continue;
                             }
                             Player player = players[i];
-                            System.out.println((i + 1) + "- " + player.getName() + " / " + player.getAge() + "años");
+                            System.out.println("["+(i + 1)+ "]" + " Jugador: " + (player.getName()) + " Años: " + player.getAge());
                         }
 
                         option = Wrapper.validateNumber("Seleccione el jugador Azul", "Solo el ingreso de números es permitido.");
@@ -88,10 +88,11 @@ public class Game {
 
                         bluePlayer = players[option - 1];
 
-                        option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido.");
                         System.out.println("1 - Discos normales");
                         System.out.println("2 - Discos aleatorios");
-                        System.out.println("2 - Cancelar");
+                        System.out.println("3 - Cancelar");
+                        
+                        option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido.");
 
                         Board board = null;
                         while (option > 3 || option < 1) {
