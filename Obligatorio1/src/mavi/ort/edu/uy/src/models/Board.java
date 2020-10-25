@@ -284,7 +284,7 @@ public class Board {
         return getDiscs();
     }
     
-    public static Disc[][] getRandomBoard() {
+    public static Board getRandomBoard() {
         Disc[][] discs = new Disc[8][8];
         int redDiscs = 0;
         int blueDiscs = 0;
@@ -324,10 +324,13 @@ public class Board {
                 }
             }
         }
-        return discs;
+        
+        Board board = new Board();
+        board.setDiscs(discs);
+        return board;
     }
     
-    public static Disc[][] getDefaultBoard() {
+    public static Board getDefaultBoard() {
         Disc[][] discs = new Disc[8][8];
         for(int i = 0; i < discs.length; i++) {
             for(int j = 0; j < discs[i].length; j++) {                
@@ -365,7 +368,14 @@ public class Board {
                 }
             }
         }
-        return discs;
+        
+        Board board = new Board();
+        board.setDiscs(discs);
+        return board;
+    }
+    
+    public void print() {
+        Board.print(this.discs);
     }
     
     public static void print(Disc[][] discs) {
