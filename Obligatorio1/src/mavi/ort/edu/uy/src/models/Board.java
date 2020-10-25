@@ -5,6 +5,8 @@
  */
 package mavi.ort.edu.uy.src.models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import mavi.ort.edu.uy.src.constants.ConsoleColor;
 import mavi.ort.edu.uy.src.utils.PrettyPrint;
 
@@ -13,7 +15,7 @@ import mavi.ort.edu.uy.src.utils.PrettyPrint;
  * @author vicentebermudez
  */
 public class Board {
-    public Disc[][] discs = new Disc[8][8];
+    private Disc[][] discs = new Disc[8][8];
     
     private static Disc randomDisc() {
         Disc disc = new Disc();
@@ -25,7 +27,264 @@ public class Board {
         return disc;
     }
     
-    public Disc[][] getRandomBoard() {
+    public boolean isPositionTaken(int i, int j) {
+        return !(this.discs[i][j] == null);
+    }
+    
+    public boolean inBoundaries(int i, int j) {
+        return j <= discs.length - 1;
+    }
+    
+    public boolean inVerticalBoundaries(int i) {
+        return i <=  6 && i >= 1;
+    }
+    
+    public boolean inHorizontalBoundaries(int j) {
+        return j >= 1 && j <= 6;
+    }
+    
+    public Disc[][] move(int position, Compass direction, int movements) {
+        int i = -1;
+        int j = -1;
+        int iTarget = -1;
+        switch(direction) {
+            case SOUTH:
+                i = 0;
+                j = 1 + position - 1;
+                iTarget = i + movements;
+                
+                boolean okay = true;
+                for(int q = 1; q <= iTarget; q++) {
+                    if(discs[q][j] != null) {
+                        okay = false;
+                    }
+                }
+                
+                int l = 1;
+                while(!okay) {                    
+                    if(l >= 5) {
+                        return null;
+                    }
+                    
+                    if(inVerticalBoundaries(i + l) && discs[i + l][j] != null) {
+                        if(inVerticalBoundaries(i + l + 1) && discs[i + l + 1][j] != null) {
+                            if(inVerticalBoundaries(i + l + 2) && discs[i + l + 2][j] != null) {
+                                if(inVerticalBoundaries(i + l + 3) && discs[i + l + 3][j] != null) {
+                                    if(inVerticalBoundaries(i + l + 4) && discs[i + l + 4][j] != null) {
+                                        if(inVerticalBoundaries(i + l + 5) && discs[i + l + 5][j] != null) {
+                                            discs[i + l + 6][j] = discs[i + l + 5][j];
+                                            discs[i + l + 5][j] = null;
+                                        }
+                                        discs[i + l + 5][j] = discs[i + l + 4][j];
+                                        discs[i + l + 4][j] = null;
+                                    }
+                                    discs[i + l + 4][j] = discs[i + l + 3][j];
+                                    discs[i + l + 3][j] = null;
+                                }
+                                discs[i + l + 3][j] = discs[i + l + 2][j];
+                                discs[i + l + 2][j] = null;
+                            }
+                            discs[i + l + 2][j] = discs[i + l + 1][j];
+                            discs[i + l + 1][j] = null;
+                        }
+                        discs[i + l + 1][j] = discs[i + l][j];
+                        discs[i + l][j] = null;
+                    }
+                    
+                    l++;
+                    
+                    okay = true;
+                    for(int q = 1; q <= iTarget; q++) {
+                        if(discs[q][j] != null) {
+                            okay = false;
+                        }
+                    }
+                }
+                
+                discs[iTarget][j] = discs[i][j];
+                discs[i][j] = null;                
+                break;
+            case NORTH:
+                i = 7;
+                j = 1 + position - 1;
+                iTarget = i - movements;
+                
+                okay = true;
+                for(int q = 6; q >= iTarget; q--) {
+                    if(discs[q][j] != null) {
+                        okay = false;
+                    }
+                }
+                
+                l = 1;
+                while(!okay) {                    
+                    if(l >= 5) {
+                        return null;
+                    }
+                    
+                    if(inVerticalBoundaries(i - l) && discs[i - l][j] != null) {
+                        if(inVerticalBoundaries(i - l - 1) && discs[i - l - 1][j] != null) {
+                            if(inVerticalBoundaries(i - l - 2) && discs[i - l - 2][j] != null) {
+                                if(inVerticalBoundaries(i - l - 3) && discs[i - l - 3][j] != null) {
+                                    if(inVerticalBoundaries(i - l - 4) && discs[i - l - 4][j] != null) {
+                                        if(inVerticalBoundaries(i - l - 5) && discs[i - l - 5][j] != null) {
+                                            discs[i + l + 6][j] = discs[i - l - 5][j];
+                                            discs[i + l + 5][j] = null;
+                                        }
+                                        discs[i - l - 5][j] = discs[i - l - 4][j];
+                                        discs[i - l - 4][j] = null;
+                                    }
+                                    discs[i - l - 4][j] = discs[i - l - 3][j];
+                                    discs[i - l - 3][j] = null;
+                                }
+                                discs[i - l - 3][j] = discs[i - l - 2][j];
+                                discs[i - l - 2][j] = null;
+                            }
+                            discs[i - l - 2][j] = discs[i - l - 1][j];
+                            discs[i - l - 1][j] = null;
+                        }
+                        discs[i - l - 1][j] = discs[i - l][j];
+                        discs[i - l][j] = null;
+                    }
+                    
+                    l++;
+                    
+                    okay = true;
+                    for(int q = i; q >= iTarget; q--) {
+                        if(discs[q][j] != null) {
+                            okay = false;
+                        }
+                    }
+                }
+                
+                discs[iTarget][j] = discs[i][j];
+                discs[i][j] = null;   
+
+                break;
+            case EAST:
+                System.out.println("Moving from EAST");
+
+                i = 1 + position - 1;
+                j = 0;
+                int jTarget = j + movements;
+                
+                okay = true;
+                for(int q = 1; q <= jTarget; q++) {
+                    if(discs[i][q] != null) {
+                        okay = false;
+                    }
+                }
+                
+                l = 1;
+                while(!okay) {                    
+                    if(l >= 5) {
+                        return null;
+                    }
+                    
+                    if(inHorizontalBoundaries(j + l) && discs[i][j + l] != null) {
+                        if(inHorizontalBoundaries(j + l + 1) && discs[i][j + l + 1] != null) {
+                            if(inHorizontalBoundaries(j + l + 2) && discs[i][j + l + 2] != null) {
+                                if(inHorizontalBoundaries(j + l + 3) && discs[i][j + l + 3] != null) {
+                                    if(inHorizontalBoundaries(j + l + 4) && discs[i][j + l + 4] != null) {
+                                        if(inHorizontalBoundaries(j + l + 5) && discs[i][j + l + 5] != null) {
+                                            discs[i][j + l + 6] = discs[i][j + l + 5];
+                                            discs[i][j + l + 5] = null;
+                                        }
+                                        discs[i][j + l + 5] = discs[i][j + l + 4];
+                                        discs[i][j + l + 4] = null;
+                                    }
+                                    discs[i][j + l + 4] = discs[i][j + l + 3];
+                                    discs[i][j + l + 3] = null;
+                                }
+                                discs[i][j + l + 3] = discs[i][j + l + 2];
+                                discs[i][j + l + 2] = null;
+                            }
+                            discs[i][j + l + 2] = discs[i][j + l + 1];
+                            discs[i][j + l + 1] = null;
+                        }
+                        discs[i][j + l + 1] = discs[i][j + l];
+                        discs[i][j + l] = null;
+                    }
+                    
+                    l++;
+                    
+                    okay = true;
+                    for(int q = 1; q <= jTarget; q++) {
+                        if(discs[i][q] != null) {
+                            okay = false;
+                        }
+                    }
+                }
+                
+                discs[i][jTarget] = discs[i][j];
+                discs[i][j] = null;
+                break;
+            case WEST:
+                System.out.println("Moving from WEST");
+
+                i = 1 + position - 1;
+                j = 7;
+                jTarget = j + movements;
+                
+                okay = true;
+                for(int q = 6; q >= jTarget; q--) {
+                    if(discs[i][q] != null) {
+                        okay = false;
+                    }
+                }
+                
+                l = 1;
+                while(!okay) {                    
+                    if(l >= 5) {
+                        return null;
+                    }
+                    
+                    if(inHorizontalBoundaries(j - l) && discs[i][j - l] != null) {
+                        if(inHorizontalBoundaries(j - l - 1) && discs[i][j - l - 1] != null) {
+                            if(inHorizontalBoundaries(j - l - 2) && discs[i][j - l - 2] != null) {
+                                if(inHorizontalBoundaries(j - l - 3) && discs[i][j - l - 3] != null) {
+                                    if(inHorizontalBoundaries(j - l - 4) && discs[i][j - l - 4] != null) {
+                                        if(inHorizontalBoundaries(j - l - 5) && discs[i][j - l - 5] != null) {
+                                            discs[i][j - l - 6] = discs[i][j - l - 5];
+                                            discs[i][j - l - 5] = null;
+                                        }
+                                        discs[i][j - l - 5] = discs[i][j - l - 4];
+                                        discs[i][j - l - 4] = null;
+                                    }
+                                    discs[i][j - l - 4] = discs[i][j - l - 3];
+                                    discs[i][j - l - 3] = null;
+                                }
+                                discs[i][j - l - 3] = discs[i][j - l - 2];
+                                discs[i][j - l - 2] = null;
+                            }
+                            discs[i][j - l - 2] = discs[i][j - l - 1];
+                            discs[i][j - l - 1] = null;
+                        }
+                        discs[i][j - l - 1] = discs[i][j - l];
+                        discs[i][j - l] = null;
+                    }
+                    
+                    l++;
+                    
+                    okay = true;
+                    for(int q = 1; q <= jTarget; q++) {
+                        if(discs[i][q] != null) {
+                            okay = false;
+                        }
+                    }
+                }
+                
+                discs[i][jTarget] = discs[i][j];
+                discs[i][j] = null;
+                break;
+        }
+        
+        // New position for the disc.
+        // East, West -> Can only move horizontally
+        return getDiscs();
+    }
+    
+    public static Disc[][] getRandomBoard() {
         Disc[][] discs = new Disc[8][8];
         int redDiscs = 0;
         int blueDiscs = 0;
@@ -68,7 +327,7 @@ public class Board {
         return discs;
     }
     
-    public Disc[][] getDefaultBoard() {
+    public static Disc[][] getDefaultBoard() {
         Disc[][] discs = new Disc[8][8];
         for(int i = 0; i < discs.length; i++) {
             for(int j = 0; j < discs[i].length; j++) {                
@@ -88,21 +347,17 @@ public class Board {
                 } else {
                     if(j == 0) {
                         if(i % 2 == 0) {
-                            System.out.println("BLUE");
                             newDisc.setColor(Color.BLUE);
                             discs[i][j] = newDisc;
                         } else {
-                            System.out.println("RED");
                             newDisc.setColor(Color.RED);
                             discs[i][j] = newDisc;
                         }
                     } else if(j == discs[i].length - 1) {
                         if((i + 1) % 2 == 0) {
-                            System.out.println("BLUE");
                             newDisc.setColor(Color.BLUE);
                             discs[i][j] = newDisc;
                         } else {
-                            System.out.println("RED");
                             newDisc.setColor(Color.RED);
                             discs[i][j] = newDisc;
                         }
@@ -114,15 +369,20 @@ public class Board {
     }
     
     public static void print(Disc[][] discs) {
+        if(discs == null) {
+            return;
+        }
         System.out.println("    1 2 3 4 5 6");
-        System.out.print("  ");
+        System.out.print("   ");
         for(int j = 0; j < discs[j].length - 1; j++) {
             Disc disc = discs[0][j];
 
             if(disc != null) {
                 PrettyPrint.print(" X", disc.getConsoleColor());
             } else {
-                System.out.print(" ");
+                if(j != 0 && j != 1) {
+                    System.out.print("  ");
+                }
             }
         }
         System.out.println();
@@ -166,7 +426,7 @@ public class Board {
             
             Disc rightBorderDisc = discs[i][discs.length - 1];
             if(rightBorderDisc != null) {
-                PrettyPrint.print(" X ", rightBorderDisc.getConsoleColor());
+                PrettyPrint.print("X ", rightBorderDisc.getConsoleColor());
             } else {
                 System.out.print(" ");
             }
@@ -195,6 +455,20 @@ public class Board {
         
         System.out.println();
         System.out.println("    1 2 3 4 5 6");
+    }
+
+    /**
+     * @return the discs
+     */
+    public Disc[][] getDiscs() {
+        return discs;
+    }
+
+    /**
+     * @param discs the discs to set
+     */
+    public void setDiscs(Disc[][] discs) {
+        this.discs = discs;
     }
     
 }
