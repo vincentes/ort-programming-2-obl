@@ -24,7 +24,7 @@ public class MovementTest {
 
         
         Board board = new Board();
-        board.setDiscs(Board.getDefaultBoard());
+        // board.setDiscs(Board.getDefaultBoard());
         board.move(1, Compass.EAST, 2);
 
         board.move(2, Compass.EAST, 2);

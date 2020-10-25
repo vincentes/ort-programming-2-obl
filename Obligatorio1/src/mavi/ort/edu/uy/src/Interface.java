@@ -1,6 +1,7 @@
 package mavi.ort.edu.uy.src;
 
 import java.util.ArrayList;
+import mavi.ort.edu.uy.src.models.Match;
 import mavi.ort.edu.uy.src.models.Player;
 
 /**
@@ -10,6 +11,8 @@ import mavi.ort.edu.uy.src.models.Player;
 public class Interface {
 
     private ArrayList<Player> playersList;
+    private ArrayList<Match> matchesList;
+    
 
     public Interface() {
         playersList = new ArrayList<>();
@@ -20,12 +23,21 @@ public class Interface {
     }
 
     public ArrayList<Player> getPlayersList() {
-        int count = 1;
-        for (Player p : playersList) {
-            System.out.println(count + "- " + p.getName());
-            count++;
-        }
         return playersList;
+    }
+    
+    public ArrayList<Match> getMatches() {
+        return matchesList;
+    }
+    
+     public boolean validatePlayerExistence(String name){
+        boolean isPlayerPresent = false;
+        for (Player p : playersList) {
+            if(p.getName().equals(name)){
+                isPlayerPresent = true;
+            }
+        }
+        return isPlayerPresent;
     }
 
 }

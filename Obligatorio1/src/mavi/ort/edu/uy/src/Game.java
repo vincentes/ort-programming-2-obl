@@ -34,7 +34,7 @@ public class Game {
     public static void menuGame() {
         int option = 0;
         while (option != 4) {
-            System.out.println("-- Grupos --");
+            System.out.println("\n-- Grupos --");
             System.out.println("1- Agregar jugador");
             System.out.println("2- Jugar grupos");
             System.out.println("3- Replicar partida");
@@ -49,116 +49,121 @@ public class Game {
                 case 2:
                     System.out.println("\nJugar grupos ");
                     ArrayList<Player> playerList = persistence.getPlayersList();
-                    Player[] players = playerList.toArray(new Player[playerList.size()]);
-                    Player redPlayer = null;
-                    for (int i = 0; i < players.length; i++) {
-                        Player player = players[i];
-                        System.out.println((i + 1) + " - " + (player.getName()) + " Años: " + player.getAge());
-                    }
+                    if (playerList.size() >= 2) {
+                        Player[] players = playerList.toArray(new Player[playerList.size()]);
+                        Player redPlayer = null;
+                        for (int i = 0; i < players.length; i++) {
+                            Player player = players[i];
+                            System.out.println("["+(i + 1)+ "]" + " Jugador: " + (player.getName()) + " Años: " + player.getAge());
+                        }
 
-                    option = Wrapper.validateNumber("Seleccione el jugador Rojo", "Solo el ingreso de números es permitido.");
+                        option = Wrapper.validateNumber("Seleccione el jugador Rojo", "Solo el ingreso de números es permitido.");
 
-                    if (option > players.length) {
-                        System.out.println("Debe elegir un jugador dentro de la lista.");
-                        continue;
-                    }
-
-                    redPlayer = players[option - 1];
-                    players[option - 1] = null;
-                    int excludedOption = option;
-
-                    System.out.println("Seleccione el jugador Azul.");
-
-                    Player bluePlayer = null;
-                    for (int i = 0; i < players.length; i++) {
-                        if (players[i] == null) {
+                        if (option > players.length) {
+                            System.out.println("Debe elegir un jugador dentro de la lista.");
                             continue;
                         }
-                        Player player = players[i];
-                        System.out.println((i + 1) + " - " + (player.getName()) + " Años: " + player.getAge());
-                    }
 
-                    option = Wrapper.validateNumber("Seleccione el jugador Azul", "Solo el ingreso de números es permitido.");
+                        redPlayer = players[option - 1];
+                        players[option - 1] = null;
+                        int excludedOption = option;
 
-                    if (option > players.length || option == excludedOption) {
-                        System.out.println("Debe elegir un jugador dentro de la lista.");
-                        continue;
-                    }
+                        System.out.println("Seleccione el jugador Azul.");
 
-                    bluePlayer = players[option - 1];
+                        Player bluePlayer = null;
+                        for (int i = 0; i < players.length; i++) {
+                            if (players[i] == null) {
+                                continue;
+                            }
+                            Player player = players[i];
+                            System.out.println((i + 1) + "- " + player.getName() + " / " + player.getAge() + "años");
+                        }
 
-                    option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido.");
-                    System.out.println("1 - Discos normales");
-                    System.out.println("2 - Discos aleatorios");
-                    System.out.println("2 - Cancelar");
+                        option = Wrapper.validateNumber("Seleccione el jugador Azul", "Solo el ingreso de números es permitido.");
 
-                    Board board = null;
-                    while (option > 3 || option < 1) {
+                        if (option > players.length || option == excludedOption) {
+                            System.out.println("Debe elegir un jugador dentro de la lista.");
+                            continue;
+                        }
+
+                        bluePlayer = players[option - 1];
+
                         option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido.");
-                    }
+                        System.out.println("1 - Discos normales");
+                        System.out.println("2 - Discos aleatorios");
+                        System.out.println("2 - Cancelar");
 
-                    switch (option) {
-                        case 1:
-                            board = Board.getDefaultBoard();
-                            break;
-                        case 2:
-                            board = Board.getRandomBoard();
-                            break;
-                        case 3:
-                            continue;
-                    }
-
-                    boolean end = false;
-                    boolean solicitedEnd = false;
-                    Scanner input = new Scanner(System.in);
-                    String strInput = "";
-                    Player playerCurr;
-                    int turn = 1;
-
-                    do {
-                        if(strInput.equals("P")) {
-                            end = true;
-                            continue;
+                        Board board = null;
+                        while (option > 3 || option < 1) {
+                            option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido.");
                         }
-                        
-                        String colorText = "";
-                        if(turn % 2 == 0) {
-                            colorText = "BLUE";
-                            playerCurr = bluePlayer;
-                        } else {
-                            colorText = "RED";
-                            playerCurr = redPlayer;
+
+                        switch (option) {
+                            case 1:
+                                board = Board.getDefaultBoard();
+                                break;
+                            case 2:
+                                board = Board.getRandomBoard();
+                                break;
+                            case 3:
+                                continue;
                         }
-                        
-                        System.out.println("TURNO AZUL");
 
-                        if (solicitedEnd) {
-                            System.out.println("El jugador ROJO propone terminar el juego. ¿Aceptar?");
+                        boolean end = false;
+                        boolean solicitedEnd = false;
+                        Scanner input = new Scanner(System.in);
+                        String strInput = "";
+                        Player playerCurr;
+                        int turn = 1;
 
-                            option = Wrapper.validateNumber("1 - SI\n2 - NO", "Debe ingresar un numero.");
+                        do {
+                            if (strInput.equals("P")) {
+                                end = true;
+                                continue;
+                            }
 
-                            while (option != 1 && option != 0) {
-                                switch (option) {
-                                    case 1:
-                                        end = true;
-                                        // End game
-                                        break;
-                                    case 2:
-                                        solicitedEnd = false;
-                                        break;
+                            String colorText = "";
+                            if (turn % 2 == 0) {
+                                colorText = "BLUE";
+                                playerCurr = bluePlayer;
+                            } else {
+                                colorText = "RED";
+                                playerCurr = redPlayer;
+                            }
+
+                            System.out.println("TURNO AZUL");
+
+                            if (solicitedEnd) {
+                                System.out.println("El jugador ROJO propone terminar el juego. ¿Aceptar?");
+
+                                option = Wrapper.validateNumber("1 - SI\n2 - NO", "Debe ingresar un numero.");
+
+                                while (option != 1 && option != 0) {
+                                    switch (option) {
+                                        case 1:
+                                            end = true;
+                                            // End game
+                                            break;
+                                        case 2:
+                                            solicitedEnd = false;
+                                            break;
+                                    }
                                 }
                             }
-                        }
 
-                        if (strInput.equals("F")) {
-                            solicitedEnd = true;
-                        } else if (strInput.equals("P")) {
-                            turn++;
-                            continue;
-                        }
+                            if (strInput.equals("F")) {
+                                solicitedEnd = true;
+                            } else if (strInput.equals("P")) {
+                                turn++;
+                                continue;
+                            }
 
-                        board.print();
-                    } while (end == false);
+                            board.print();
+                        } while (end == false);
+                    }else{
+                        System.out.println("\nDeben de existir al menos dos jugadores en el sistema para poder jugar");
+                    }
+
                     break;
                 case 3:
                     System.out.println("\nReplicar partida");
@@ -181,8 +186,16 @@ public class Game {
     }
 
     public static void addPlayer() {
+        String name = "";
         int age = 100;
-        String name = Wrapper.validateString("Ingrese nombre:", "El nombre solo puede contener letras y números");
+        boolean validatePlayerExistence = true;
+        while (validatePlayerExistence) {
+            name = Wrapper.validateString("Ingrese nombre:", "El nombre solo puede contener letras y números");
+            validatePlayerExistence = persistence.validatePlayerExistence(name);
+            if(validatePlayerExistence){
+                System.out.println("\nEl jugador " +name+ " ya existe en el sistema");
+            }
+        }
         while (age >= 80 || age <= 12) {
             age = Wrapper.validateNumber("Ingrese edad:", "Solo el ingreso de números es permitido");
             if (age >= 80 || age <= 12) {
