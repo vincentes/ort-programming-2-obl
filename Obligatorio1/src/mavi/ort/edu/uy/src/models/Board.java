@@ -5,8 +5,6 @@
  */
 package mavi.ort.edu.uy.src.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import mavi.ort.edu.uy.src.constants.ConsoleColor;
 import mavi.ort.edu.uy.src.utils.PrettyPrint;
 
