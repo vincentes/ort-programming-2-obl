@@ -6,9 +6,8 @@ import mavi.ort.edu.uy.src.models.Disc;
 import mavi.ort.edu.uy.src.models.Match;
 import mavi.ort.edu.uy.src.models.Player;
 import mavi.ort.edu.uy.src.models.ResultCode;
-import java.util.Date;
-import java.util.List;
-import mavi.ort.edu.uy.src.models.Step;
+import static mavi.ort.edu.uy.src.Game.persistence;
+import mavi.ort.edu.uy.src.utils.Wrapper;
 
 /**
  *
@@ -16,8 +15,8 @@ import mavi.ort.edu.uy.src.models.Step;
  */
 public class Interface {
 
-    private ArrayList<Player> playersList;
-    private ArrayList<Match> matchesList;
+    public static ArrayList<Player> playersList;
+    public ArrayList<Match> matchesList;
 
     public Interface() {
         playersList = new ArrayList<>();
@@ -25,8 +24,29 @@ public class Interface {
     }
 
     // Players handling
-    public void addPlayer(Player player) {
+    public static void addPlayer(Player player) {
         playersList.add(player);
+    }
+    
+    public static void addPlayerFunctionality() {
+        String name = "";
+        int age = 100;
+        boolean validatePlayerExistence = true;
+        while (validatePlayerExistence) {
+            name = Wrapper.validateString("Ingrese nombre:", "El nombre solo puede contener letras y números");
+            validatePlayerExistence = persistence.validatePlayerExistence(name);
+            if (validatePlayerExistence) {
+                System.out.println("\nEl jugador " + name + " ya existe en el sistema");
+            }
+        }
+        while (age >= 80 || age <= 12) {
+            age = Wrapper.validateNumber("Ingrese edad:", "Solo el ingreso de números es permitido");
+            if (age >= 80 || age <= 12) {
+                System.out.println("Rango de edad permitido [12 - 80]");
+            }
+        }
+        Player newPlayer = new Player(name, age);
+        addPlayer(newPlayer);
     }
 
     public ArrayList<Player> getPlayersList() {

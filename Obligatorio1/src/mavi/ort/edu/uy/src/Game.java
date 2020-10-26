@@ -52,7 +52,7 @@ public class Game {
             switch (option) {
                 case 1:
                     System.out.println("\nAgregar jugador");
-                    addPlayer();
+                    persistence.addPlayerFunctionality();
                     break;
                 case 2:
                     System.out.println("\nJugar grupos ");
@@ -296,27 +296,6 @@ public class Game {
                     continue;
             }
         }
-    }
-
-    public static void addPlayer() {
-        String name = "";
-        int age = 100;
-        boolean validatePlayerExistence = true;
-        while (validatePlayerExistence) {
-            name = Wrapper.validateString("Ingrese nombre:", "El nombre solo puede contener letras y números");
-            validatePlayerExistence = persistence.validatePlayerExistence(name);
-            if (validatePlayerExistence) {
-                System.out.println("\nEl jugador " + name + " ya existe en el sistema");
-            }
-        }
-        while (age >= 80 || age <= 12) {
-            age = Wrapper.validateNumber("Ingrese edad:", "Solo el ingreso de números es permitido");
-            if (age >= 80 || age <= 12) {
-                System.out.println("Rango de edad permitido [12 - 80]");
-            }
-        }
-        Player newPlayer = new Player(name, age);
-        persistence.addPlayer(newPlayer);
-    }
+    }    
 
 }
