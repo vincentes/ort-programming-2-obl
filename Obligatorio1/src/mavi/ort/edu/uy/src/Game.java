@@ -72,13 +72,16 @@ public class Game {
                             System.out.println("[" + (i + 1) + "]" + " Jugador: " + (player.getName()) + " Años: " + player.getAge());
                         }
 
-                        System.out.println("Seleccione el jugador [ROJO]");
-                        String optionStr = input.nextLine();
+
                         boolean inputFinished = false;
-                        while (inputFinished) {
+                        while (!inputFinished) {
+                            System.out.println("Seleccione el jugador [ROJO]");
+                            String optionStr = input.nextLine();
+                        
                             if (!Wrapper.isValidNumber(optionStr)) {
                                 System.out.println("Solo el ingreso de números es permitido.");
                                 optionStr = input.nextLine();
+                                continue;
                             }
 
                             option = Integer.parseInt(optionStr);
@@ -86,14 +89,8 @@ public class Game {
                                 System.out.println("Debe elegir un jugador dentro de la lista");
                                 continue;
                             }
+                            
                             inputFinished = true;
-
-                            option = Wrapper.validateNumber("Seleccione el jugador [ROJO]", "Solo el ingreso de números es permitido");
-
-                            if (option > players.length) {
-                                System.out.println("Debe elegir un jugador dentro de la lista");
-                                continue;
-                            }
 
                             redPlayer = players[option - 1];
                             players[option - 1] = null;
@@ -215,7 +212,7 @@ public class Game {
                                         step.setBoard(board.copyBoard());
                                         steps.add(step);
                                         System.out.println("Pasando turno.");
-                                        turn++;
+                                        inputFinished = true;
                                         continue;
                                     }
 
@@ -224,7 +221,7 @@ public class Game {
                                         step.setBoard(board.copyBoard());
                                         steps.add(step);
                                         solicitedEnd = true;
-                                        turn++;
+                                        inputFinished = true;
                                         continue;
                                     }
 
