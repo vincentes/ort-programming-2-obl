@@ -71,7 +71,7 @@ public class Game {
                         }
 
                         option = Wrapper.validateNumber("Seleccione el jugador [ROJO]", "Solo el ingreso de números es permitido");
-
+                        
                         if (option > players.length) {
                             System.out.println("Debe elegir un jugador dentro de la lista");
                             continue;
@@ -109,6 +109,7 @@ public class Game {
                         while (option > 3 || option < 1) {
                             option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido");
                         }
+                        
                         Step step = new Step();
                         switch (option) {
                             case 1:
@@ -132,6 +133,7 @@ public class Game {
                         Player playerCurr;
                         int turn = 1;
                         do {
+                            step = new Step();
                             board.print();
 
                             String colorText = "";
