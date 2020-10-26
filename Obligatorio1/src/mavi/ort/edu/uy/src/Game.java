@@ -114,13 +114,13 @@ public class Game {
                             case 1:
                                 board = Board.getDefaultBoard();
                                 step.setMovementDescription("Inicio de partida | Modo [DEFAULT]");
-                                step.setBoard(board);
+                                step.setBoard(board.copyBoard());
                                 steps.add(step);
                                 break;
                             case 2:
                                 board = Board.getRandomBoard();
                                 step.setMovementDescription("Inicio de partida | Modo [RANDOM]");
-                                step.setBoard(board);
+                                step.setBoard(board.copyBoard());
                                 steps.add(step);
                                 break;
                             case 3:
@@ -164,7 +164,7 @@ public class Game {
                                     case 1:
                                         end = true;
                                         step.setMovementDescription("El jugador " + colorText + " ha aceptado la petición del jugador " + notCurrPlayer);
-                                        step.setBoard(board);
+                                        step.setBoard(board.copyBoard());
                                         steps.add(step);
                                         match = new Match(currentTime, matchName, steps, redPlayer, bluePlayer, "El ganado es <GANADOR>");
                                         persistence.addMatch(match);
@@ -181,7 +181,7 @@ public class Game {
 
                             if (strInput.equalsIgnoreCase("P")) {
                                 step.setMovementDescription("El jugador " + colorText + " ha pasado de turno");
-                                step.setBoard(board);
+                                step.setBoard(board.copyBoard());
                                 steps.add(step);
                                 System.out.println("Pasando turno.");
                                 turn++;
@@ -190,7 +190,7 @@ public class Game {
 
                             if (strInput.equalsIgnoreCase("F")) {
                                 step.setMovementDescription("El jugador " + colorText + " ha decidido terminar el juego");
-                                step.setBoard(board);
+                                step.setBoard(board.copyBoard());
                                 steps.add(step);
                                 solicitedEnd = true;
                                 turn++;
@@ -231,7 +231,7 @@ public class Game {
 
                             board.move(position, compass, movements);
                             step.setMovementDescription("El jugador " + colorText + " ha hecho el movimiento " + tokens[0] + " " + tokens[1] + " " + tokens[2]);
-                            step.setBoard(board);
+                            step.setBoard(board.copyBoard());
                             steps.add(step);
                             turn++;
                         } while (end == false);

@@ -15,6 +15,24 @@ import mavi.ort.edu.uy.src.utils.PrettyPrint;
 public class Board {
     private Disc[][] discs = new Disc[8][8];
     
+    public Board() {
+        
+    }
+    
+    public Board(Disc[][] discs) {
+        this.discs = discs;
+    }
+    
+    public Board copyBoard() {
+        Disc[][] discsCopy = new Disc[8][8];
+        for(int i = 0; i < discsCopy.length; i++) {
+            for(int j = 0; j < discsCopy[i].length; j++) {
+                discsCopy[i][j] = discs[i][j];
+            }
+        }
+        return new Board(discsCopy);
+    }
+    
     private static Disc randomDisc() {
         Disc disc = new Disc();
         if(Math.random() < 0.5) {
