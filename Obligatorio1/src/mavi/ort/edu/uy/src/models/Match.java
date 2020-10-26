@@ -18,9 +18,9 @@ public class Match {
     private List<Step> steps;
     private Player playerRed;
     private Player playerBlue;
-    private String result;
+    private ResultCode result;
 
-    public Match(String date, String name, List<Step> steps, Player playerRed, Player playerBlue, String result) {
+    public Match(String date, String name, List<Step> steps, Player playerRed, Player playerBlue, ResultCode result) {
         this.setDate(date);
         this.setName(name);
         this.setSteps(steps);
@@ -102,14 +102,14 @@ public class Match {
     /**
      * @return the result
      */
-    public String getResult() {
+    public ResultCode getResult() {
         return result;
     }
 
     /**
      * @param result the result to set
      */
-    public void setResult(String result) {
+    public void setResult(ResultCode result) {
         this.result = result;
     }
     

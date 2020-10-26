@@ -16,6 +16,7 @@ import mavi.ort.edu.uy.src.models.Disc;
 import mavi.ort.edu.uy.src.models.Match;
 import mavi.ort.edu.uy.src.utils.Wrapper;
 import mavi.ort.edu.uy.src.models.Player;
+import mavi.ort.edu.uy.src.models.ResultCode;
 import mavi.ort.edu.uy.src.models.Step;
 import mavi.ort.edu.uy.src.utils.PrettyPrint;
 
@@ -73,12 +74,11 @@ public class Game {
                             System.out.println("[" + (i + 1) + "]" + " Jugador: " + (player.getName()) + " Años: " + player.getAge());
                         }
 
-
                         boolean inputFinished = false;
                         while (!inputFinished) {
                             System.out.println("Seleccione el jugador [ROJO]");
                             String optionStr = input.nextLine();
-                        
+
                             if (!Wrapper.isValidNumber(optionStr)) {
                                 System.out.println("Solo el ingreso de números es permitido.");
                                 optionStr = input.nextLine();
@@ -90,7 +90,7 @@ public class Game {
                                 System.out.println("Debe elegir un jugador dentro de la lista");
                                 continue;
                             }
-                            
+
                             inputFinished = true;
 
                             redPlayer = players[option - 1];
@@ -194,7 +194,24 @@ public class Game {
                                             step.setMovementDescription("El jugador " + colorText + " ha aceptado la petición del jugador " + notCurrPlayer);
                                             step.setBoard(board.copyBoard());
                                             steps.add(step);
-                                            match = new Match(currentTime, matchName, steps, redPlayer, bluePlayer, "El ganado es <GANADOR>");
+                                            ResultCode winner = null;
+                                            System.out.println(steps.size());
+
+                                            try {
+                                                winner = persistence.getWinner(steps.get(steps.size() - 1).getBoard().getDiscs());
+                                            } catch (Exception e) {
+                                                winner = ResultCode.DRAW;
+                                            }
+
+                                            if (winner.equals(ResultCode.PLAYER_RED)) {
+                                                System.out.println("El jugador [ROJO] ha ganado el partido.");
+                                            } else if (winner.equals(ResultCode.PLAYER_BLUE)) {
+                                                System.out.println("El jugador [AZUL] ha ganado el partido.");
+                                            } else {
+                                                System.out.println("El jugador [ROJO][AZUL] han empatado el partido.");
+                                            }
+
+                                            match = new Match(currentTime, matchName, steps, redPlayer, bluePlayer, winner);
                                             persistence.addMatch(match);
                                             continue;
                                         case 2:
@@ -242,34 +259,34 @@ public class Game {
                                         System.out.println("Movimiento inválido. Debe ser del formato <Indice> <Movimiento (S, N, E, O)> <Cantidad de movimientos>");
                                         continue;
                                     }
-                                    
+
                                     String movementsStr = tokens[2];
-                                    if(!Wrapper.isValidNumber(movementsStr)) {
-                                       System.out.println("La cantidad de movimientos debe ser un numero.");
-                                       continue;
+                                    if (!Wrapper.isValidNumber(movementsStr)) {
+                                        System.out.println("La cantidad de movimientos debe ser un numero.");
+                                        continue;
                                     }
-                                    
+
                                     int movements = Integer.parseInt(movementsStr);
-                                    if(movements > 6 || movements < 1) {
+                                    if (movements > 6 || movements < 1) {
                                         System.out.println("La cantidad de movimientos debe estar entre 1 y 6.");
                                         continue;
                                     }
-                                    
+
                                     String positionStr = tokens[0];
-                                    if(!Wrapper.isValidNumber(positionStr)) {
+                                    if (!Wrapper.isValidNumber(positionStr)) {
                                         System.out.println("La posición debe ser un número.");
                                         continue;
                                     }
-                                    
+
                                     int position = Integer.parseInt(positionStr);
-                                    if(position < 1 || position > 6) {
+                                    if (position < 1 || position > 6) {
                                         System.out.println("La posición debe estar entre 1 y 6 inclusive.");
                                         continue;
                                     }
-                                    
+
                                     Compass compass = null;
                                     Color color = null;
-                                    switch(colorText) {
+                                    switch (colorText) {
                                         case "AZUL":
                                             color = Color.BLUE;
                                             break;
@@ -279,48 +296,48 @@ public class Game {
                                     }
                                     switch (movementChar.toUpperCase()) {
                                         case "S":
-                                            if(!board.existsDisc(0, position)) {
+                                            if (!board.existsDisc(0, position)) {
                                                 System.out.println("El disco a mover debe estar en el lugar indicado.");
                                                 continue;
                                             }
-                                            
-                                            if(board.getColorOfDisc(0, position) != color) {
+
+                                            if (board.getColorOfDisc(0, position) != color) {
                                                 System.out.println("El color del disco a mover debe ser de tu color.");
                                                 continue;
                                             }
                                             compass = Compass.SOUTH;
                                             break;
                                         case "N":
-                                            if(!board.existsDisc(7, position)) {
+                                            if (!board.existsDisc(7, position)) {
                                                 System.out.println("El disco a mover debe estar en el lugar indicado.");
                                                 continue;
                                             }
-                                            
-                                            if(board.getColorOfDisc(7, position) != color) {
+
+                                            if (board.getColorOfDisc(7, position) != color) {
                                                 System.out.println("El color del disco a mover debe ser de tu color.");
                                                 continue;
                                             }
                                             compass = Compass.NORTH;
                                             break;
                                         case "O":
-                                            if(!board.existsDisc(position, 7)) {
+                                            if (!board.existsDisc(position, 7)) {
                                                 System.out.println("El disco a mover debe estar en el lugar indicado.");
                                                 continue;
                                             }
-                                            
-                                            if(board.getColorOfDisc(position, 7) != color) {
+
+                                            if (board.getColorOfDisc(position, 7) != color) {
                                                 System.out.println("El color del disco a mover debe ser de tu color.");
                                                 continue;
                                             }
                                             compass = Compass.WEST;
                                             break;
                                         case "E":
-                                            if(!board.existsDisc(position, 0)) {
+                                            if (!board.existsDisc(position, 0)) {
                                                 System.out.println("El disco a mover debe estar en el lugar indicado.");
                                                 continue;
                                             }
-                                            
-                                            if(board.getColorOfDisc(position, 0) != color) {
+
+                                            if (board.getColorOfDisc(position, 0) != color) {
                                                 System.out.println("El color del disco a mover debe ser de tu color.");
                                                 continue;
                                             }
@@ -329,7 +346,7 @@ public class Game {
                                     }
 
                                     Disc[][] result = board.move(position, compass, movements);
-                                    if(result == null) {
+                                    if (result == null) {
                                         System.out.println("Movimiento inválido. El disco no puede salirse del tablero.");
                                         continue;
                                     }
