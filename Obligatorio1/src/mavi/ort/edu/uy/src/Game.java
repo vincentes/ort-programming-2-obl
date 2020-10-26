@@ -37,8 +37,8 @@ public class Game {
         ArrayList<Player> playerList = persistence.getPlayersList();
         Player testPlayerA = new Player("Joaquin", 20);
         Player testPlayerB = new Player("Roberto", 25);
-        playerList.add(testPlayerA);
-        playerList.add(testPlayerB);
+        persistence.addPlayer(testPlayerA);
+        persistence.addPlayer(testPlayerB);
         
         ArrayList<Match> matchesList = persistence.getMatches();
         while (option != 4) {
