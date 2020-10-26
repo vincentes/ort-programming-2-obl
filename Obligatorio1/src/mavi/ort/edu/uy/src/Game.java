@@ -428,8 +428,8 @@ public class Game {
                                 System.out.println("--------------------");
                             }
                             discs = stepsToReplicate.get(i).getBoard().getDiscs();
-                            String opt = Wrapper.validateString("\nPresione X para continuar | Cualquier otra tecla para finalizar\nDesea seguir?", "Solo el ingreso de números es permitido");
-                            if (!opt.toLowerCase().equals("x")) {
+                            String opt = Wrapper.validateString("\nPresione X para finalizar | Cualquier número/letra para continuar\nDesea seguir?", "Solo el ingreso de números es permitido");
+                            if (opt.toLowerCase().equals("x")) {
                                 break;
                             }
                         }
