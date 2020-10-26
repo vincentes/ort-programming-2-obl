@@ -17,16 +17,14 @@ public class Match {
     private String date;
     private String name;
     private List<Step> steps;
-    private Disc[][] discs;
     private Player playerRed;
     private Player playerBlue;
     private String result;
 
-    public Match(String date, String name, List<Step> steps, Disc[][] discs, Player playerRed, Player playerBlue, String result) {
+    public Match(String date, String name, List<Step> steps, Player playerRed, Player playerBlue, String result) {
         this.setDate(date);
         this.setName(name);
         this.setSteps(steps);
-        this.setDiscs(discs);
         this.setPlayerRed(playerRed);
         this.setPlayerBlue(playerBlue);
         this.setResult(result);
@@ -75,20 +73,6 @@ public class Match {
     }
 
     /**
-     * @return the discs
-     */
-    public Disc[][] getDiscs() {
-        return discs;
-    }
-
-    /**
-     * @param discs the discs to set
-     */
-    public void setDiscs(Disc[][] discs) {
-        this.discs = discs;
-    }
-
-    /**
      * @return the playerRed
      */
     public Player getPlayerRed() {
@@ -129,4 +113,5 @@ public class Match {
     public void setResult(String result) {
         this.result = result;
     }
+    
 }
