@@ -13,16 +13,18 @@ import java.util.List;
  * @author vicentebermudez
  */
 public class Match {
+
     private String date;
     private String name;
     private List<Step> steps;
-    private Disc[][] discs; 
+    private Disc[][] discs;
     private Player playerRed;
     private Player playerBlue;
     private String result;
-    
-     public Match(String date, String name, List<Step> steps, Disc[][] discs, Player playerRed, Player playerBlue, String result) {
+
+    public Match(String date, String name, List<Step> steps, Disc[][] discs, Player playerRed, Player playerBlue, String result) {
         this.setDate(date);
+        this.setName(name);
         this.setSteps(steps);
         this.setDiscs(discs);
         this.setPlayerRed(playerRed);
