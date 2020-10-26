@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 import mavi.ort.edu.uy.src.constants.ConsoleColor;
 import mavi.ort.edu.uy.src.models.Board;
+import mavi.ort.edu.uy.src.models.Color;
 import mavi.ort.edu.uy.src.models.Compass;
 import mavi.ort.edu.uy.src.models.Disc;
 import mavi.ort.edu.uy.src.models.Match;
@@ -241,28 +242,97 @@ public class Game {
                                         System.out.println("Movimiento inválido. Debe ser del formato <Indice> <Movimiento (S, N, E, O)> <Cantidad de movimientos>");
                                         continue;
                                     }
-
-                                    int movements = Integer.parseInt(tokens[2]);
-                                    int position = Integer.parseInt(tokens[0]);
-
+                                    
+                                    String movementsStr = tokens[2];
+                                    if(!Wrapper.isValidNumber(movementsStr)) {
+                                       System.out.println("La cantidad de movimientos debe ser un numero.");
+                                       continue;
+                                    }
+                                    
+                                    int movements = Integer.parseInt(movementsStr);
+                                    if(movements > 6 || movements < 1) {
+                                        System.out.println("La cantidad de movimientos debe estar entre 1 y 6.");
+                                        continue;
+                                    }
+                                    
+                                    String positionStr = tokens[0];
+                                    if(!Wrapper.isValidNumber(positionStr)) {
+                                        System.out.println("La posición debe ser un número.");
+                                        continue;
+                                    }
+                                    
+                                    int position = Integer.parseInt(positionStr);
+                                    if(position < 1 || position > 6) {
+                                        System.out.println("La posición debe estar entre 1 y 6 inclusive.");
+                                        continue;
+                                    }
+                                    
                                     Compass compass = null;
-
+                                    Color color = null;
+                                    switch(colorText) {
+                                        case "AZUL":
+                                            color = Color.BLUE;
+                                            break;
+                                        case "ROJO":
+                                            color = Color.RED;
+                                            break;
+                                    }
                                     switch (movementChar.toUpperCase()) {
                                         case "S":
+                                            if(!board.existsDisc(0, position)) {
+                                                System.out.println("El disco a mover debe estar en el lugar indicado.");
+                                                continue;
+                                            }
+                                            
+                                            if(board.getColorOfDisc(0, position) != color) {
+                                                System.out.println("El color del disco a mover debe ser de tu color.");
+                                                continue;
+                                            }
                                             compass = Compass.SOUTH;
                                             break;
                                         case "N":
+                                            if(!board.existsDisc(7, position)) {
+                                                System.out.println("El disco a mover debe estar en el lugar indicado.");
+                                                continue;
+                                            }
+                                            
+                                            if(board.getColorOfDisc(7, position) != color) {
+                                                System.out.println("El color del disco a mover debe ser de tu color.");
+                                                continue;
+                                            }
                                             compass = Compass.NORTH;
                                             break;
                                         case "O":
+                                            if(!board.existsDisc(position, 7)) {
+                                                System.out.println("El disco a mover debe estar en el lugar indicado.");
+                                                continue;
+                                            }
+                                            
+                                            if(board.getColorOfDisc(position, 7) != color) {
+                                                System.out.println("El color del disco a mover debe ser de tu color.");
+                                                continue;
+                                            }
                                             compass = Compass.WEST;
                                             break;
                                         case "E":
+                                            if(!board.existsDisc(position, 0)) {
+                                                System.out.println("El disco a mover debe estar en el lugar indicado.");
+                                                continue;
+                                            }
+                                            
+                                            if(board.getColorOfDisc(position, 0) != color) {
+                                                System.out.println("El color del disco a mover debe ser de tu color.");
+                                                continue;
+                                            }
                                             compass = Compass.EAST;
                                             break;
                                     }
 
-                                    board.move(position, compass, movements);
+                                    Disc[][] result = board.move(position, compass, movements);
+                                    if(result == null) {
+                                        System.out.println("Movimiento inválido. El disco no puede salirse del tablero.");
+                                        continue;
+                                    }
                                     String positionTok = tokens[0];
                                     String directionTok = tokens[1];
                                     String movementsTok = tokens[2];

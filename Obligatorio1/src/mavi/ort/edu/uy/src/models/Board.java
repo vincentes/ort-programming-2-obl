@@ -68,6 +68,11 @@ public class Board {
             case SOUTH:
                 i = 0;
                 j = 1 + position - 1;
+                
+                if(discs[i][j] == null) {
+                    return null;
+                }
+                
                 iTarget = i + movements;
                 
                 int amtDisks = 0;
@@ -198,11 +203,13 @@ public class Board {
 
                 break;
             case EAST:
-                System.out.println("Moving from EAST");
-
                 i = 1 + position - 1;
                 j = 0;
                 int jTarget = j + movements;
+                
+                if(discs[i][j] == null) {
+                    return null;
+                }
                 
                 amtDisks = 0;
                                     
@@ -265,11 +272,13 @@ public class Board {
                 discs[i][j] = null;
                 break;
             case WEST:
-                System.out.println("Moving from WEST");
-
                 i = 1 + position - 1;
                 j = 7;
                 jTarget = j - movements;
+                
+                if(discs[i][j] == null) {
+                    return null;
+                }
                 
                 amtDisks = 0;
                                     
@@ -469,6 +478,10 @@ public class Board {
         return board;
     }
     
+    public boolean existsDisc(int i, int j) {
+        return discs[i][j] != null;
+    }
+    
     public static Board getDefaultBoard() {
         Disc[][] discs = new Disc[8][8];
         for(int i = 0; i < discs.length; i++) {
@@ -515,6 +528,13 @@ public class Board {
     
     public void print() {
         Board.print(this.discs);
+    }
+    
+    public Color getColorOfDisc(int i, int j) {
+        if(discs[i][j] == null) {
+            return null;
+        }
+        return discs[i][j].getColor();
     }
     
     public static void print(Disc[][] discs) {
