@@ -386,7 +386,18 @@ public class Board {
             Disc otherDisc = discs[0][j + 2];
 
             if(disc.getColor() == nextDisc.getColor() && nextDisc.getColor() == otherDisc.getColor()) {
-                fixColor();
+                int randomNum = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                switch(randomNum) {
+                    case 1:
+                        disc.setColor(disc.getColor().getInverse());
+                        break;
+                    case 2:
+                        nextDisc.setColor(disc.getColor().getInverse());
+                        break;
+                    case 3:
+                        nextDisc.setColor(disc.getColor().getInverse());
+                        break;
+                }
             }
         }
         
