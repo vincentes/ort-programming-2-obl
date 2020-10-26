@@ -13,7 +13,7 @@ import java.util.List;
  * @author vicentebermudez
  */
 public class Match {
-    private Date date;
+    private String date;
     private String name;
     private List<Step> steps;
     private Disc[][] discs; 
@@ -21,7 +21,7 @@ public class Match {
     private Player playerBlue;
     private String result;
     
-     public Match(Date date, String name, List<Step> steps, Disc[][] discs, Player playerRed, Player playerBlue, String result) {
+     public Match(String date, String name, List<Step> steps, Disc[][] discs, Player playerRed, Player playerBlue, String result) {
         date = date;
         steps = steps;
         discs = discs;
@@ -33,14 +33,14 @@ public class Match {
     /**
      * @return the date
      */
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
