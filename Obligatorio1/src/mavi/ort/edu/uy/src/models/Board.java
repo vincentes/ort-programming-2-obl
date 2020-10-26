@@ -114,7 +114,7 @@ public class Board {
                 break;
             case NORTH:
                 i = 7;
-                j = 1 + position - 1;
+                j = position;
                 iTarget = i - movements;
                 
                 amtDisks = 0;
@@ -166,11 +166,12 @@ public class Board {
                     l++;
                     
                     okay = true;
-                    for(int q = i; q >= iTarget; q--) {
+                    for(int q = i - 1; q >= iTarget; q--) {
                         if(discs[q][j] != null) {
                             okay = false;
                         }
                     }
+                    print();
                 }
                 
                 discs[iTarget][j] = discs[i][j];
@@ -473,7 +474,7 @@ public class Board {
             if(rightBorderDisc != null) {
                 PrettyPrint.print("X ", rightBorderDisc.getConsoleColor());
             } else {
-                System.out.print(" ");
+                System.out.print("  ");
             }
             
             System.out.print(i);
@@ -486,17 +487,16 @@ public class Board {
             PrettyPrint.println(rowSeparator, ConsoleColor.BLACK, ConsoleColor.GREEN_BACKGROUND);
         }
         
-        System.out.print("  ");
+        System.out.print(" ");
         for(int j = 0; j < discs[j].length - 1; j++) {
             Disc disc = discs[discs.length - 1][j];
 
             if(disc != null) {
                 PrettyPrint.print(" X", disc.getConsoleColor());
             } else {
-                System.out.print(" ");
+                System.out.print("  ");
             }
         }
-        
         
         System.out.println();
         System.out.println("    1 2 3 4 5 6");

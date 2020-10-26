@@ -48,5 +48,6 @@ public class MovementTest {
         
         board.move(2, Compass.NORTH, 3);
         board.print();
+        
     }
 }
