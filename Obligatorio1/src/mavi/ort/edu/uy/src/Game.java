@@ -59,6 +59,7 @@ public class Game {
 
                     String currentTime = Wrapper.getCurrentTime();
                     String matchName = Wrapper.validateString("Ingrese el nombre de la partida:", "El nombre de la partida solo puede contener letras y números");
+                    Match match = null;
                     ArrayList<Step> steps = new ArrayList<Step>();
 
                     if (playerList.size() >= 2) {
@@ -165,7 +166,7 @@ public class Game {
                                         step.setMovementDescription("El jugador " + colorText + " ha aceptado la petición del jugador " + notCurrPlayer);
                                         step.setBoard(board);
                                         steps.add(step);
-                                        Match match = new Match(currentTime, matchName, steps, redPlayer, bluePlayer, "El ganado es <GANADOR>");
+                                        match = new Match(currentTime, matchName, steps, redPlayer, bluePlayer, "El ganado es <GANADOR>");
                                         persistence.addMatch(match);
                                         continue;
                                     case 2:
