@@ -10,6 +10,34 @@ package mavi.ort.edu.uy.src.models;
  * @author vicentebermudez
  */
 public class Step {
-    public Board board;
-    public String movementDescription;
+    private Board board;
+    private String movementDescription;
+
+    /**
+     * @return the board
+     */
+    public Board getBoard() {
+        return board;
+    }
+
+    /**
+     * @param board the board to set
+     */
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    /**
+     * @return the movementDescription
+     */
+    public String getMovementDescription() {
+        return movementDescription;
+    }
+
+    /**
+     * @param movementDescription the movementDescription to set
+     */
+    public void setMovementDescription(String movementDescription) {
+        this.movementDescription = movementDescription;
+    }
 }
