@@ -39,11 +39,6 @@ public class Game {
         int option = 0;
         Scanner input = new Scanner(System.in);
         ArrayList<Player> playerList = persistence.getPlayersList();
-        Player testPlayerA = new Player("Joaquin", 20);
-        Player testPlayerB = new Player("Roberto", 25);
-        persistence.addPlayer(testPlayerA);
-        persistence.addPlayer(testPlayerB);
-
         ArrayList<Match> matchesList = persistence.getMatches();
         while (option != 4) {
             System.out.println("\n-- Grupos --");
@@ -62,11 +57,11 @@ public class Game {
                     System.out.println("\nJugar grupos ");
 
                     String currentTime = Wrapper.getCurrentTime();
-                    String matchName = Wrapper.validateString("Ingrese el nombre de la partida:", "El nombre de la partida solo puede contener letras y números");
                     Match match = null;
                     ArrayList<Step> steps = new ArrayList<Step>();
 
                     if (playerList.size() >= 2) {
+                        String matchName = Wrapper.validateString("Ingrese el nombre de la partida:", "El nombre de la partida solo puede contener letras y números");
                         Player[] players = playerList.toArray(new Player[playerList.size()]);
                         Player redPlayer = null;
                         for (int i = 0; i < players.length; i++) {
