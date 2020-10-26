@@ -22,7 +22,7 @@ import mavi.ort.edu.uy.src.utils.PrettyPrint;
 
 /**
  *
- * @author vicentebermudez
+ * @authors Vicente Bermúdez - Matías Sallé
  */
 public class Game {
 
@@ -171,6 +171,33 @@ public class Game {
                                     playerCurr = redPlayer;
                                 }
 
+                                if(!board.hasDiscInBorders()) {
+                                    step.setMovementDescription("No hay más movimientos disponibles. El juego ha finalizado.");
+                                    step.setBoard(board.copyBoard());
+                                    steps.add(step);
+                                    ResultCode winner = null;
+                                    System.out.println(steps.size());
+
+                                    try {
+                                        winner = persistence.getWinner(steps.get(steps.size() - 1).getBoard().getDiscs());
+                                    } catch (Exception e) {
+                                        winner = ResultCode.DRAW;
+                                    }
+
+                                    if (winner.equals(ResultCode.PLAYER_RED)) {
+                                        System.out.println("El jugador [ROJO] ha ganado el partido.");
+                                    } else if (winner.equals(ResultCode.PLAYER_BLUE)) {
+                                        System.out.println("El jugador [AZUL] ha ganado el partido.");
+                                    } else {
+                                        System.out.println("Los jugadores han empatado el partido.");
+                                    }
+
+                                    match = new Match(currentTime, matchName, steps, redPlayer, bluePlayer, winner);
+                                    persistence.addMatch(match);
+                                    end = true;
+                                    continue;
+                                }
+                                
                                 System.out.println("TURNO " + colorText);
                                 if (solicitedEnd) {
                                     String notCurrPlayer = "";
@@ -208,7 +235,7 @@ public class Game {
                                             } else if (winner.equals(ResultCode.PLAYER_BLUE)) {
                                                 System.out.println("El jugador [AZUL] ha ganado el partido.");
                                             } else {
-                                                System.out.println("El jugador [ROJO][AZUL] han empatado el partido.");
+                                                System.out.println("Los jugadores han empatado el partido.");
                                             }
 
                                             match = new Match(currentTime, matchName, steps, redPlayer, bluePlayer, winner);
