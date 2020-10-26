@@ -22,12 +22,12 @@ public class Match {
     private String result;
     
      public Match(String date, String name, List<Step> steps, Disc[][] discs, Player playerRed, Player playerBlue, String result) {
-        date = date;
-        steps = steps;
-        discs = discs;
-        playerRed = playerRed;
-        playerBlue = playerBlue;
-        result = result;
+        this.setDate(date);
+        this.setSteps(steps);
+        this.setDiscs(discs);
+        this.setPlayerRed(playerRed);
+        this.setPlayerBlue(playerBlue);
+        this.setResult(result);
     }
 
     /**

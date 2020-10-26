@@ -6,7 +6,6 @@
 package mavi.ort.edu.uy.src;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 import mavi.ort.edu.uy.src.models.Board;
 import mavi.ort.edu.uy.src.models.Compass;
