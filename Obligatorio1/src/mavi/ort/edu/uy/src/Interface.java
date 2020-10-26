@@ -21,8 +21,10 @@ public class Interface {
 
     public Interface() {
         playersList = new ArrayList<>();
+        matchesList = new ArrayList<>();
     }
 
+    // Players handling
     public void addPlayer(Player player) {
         playersList.add(player);
     }
@@ -31,19 +33,13 @@ public class Interface {
         return playersList;
     }
 
+    // Matches handling
     public ArrayList<Match> getMatches() {
         return matchesList;
     }
 
-    public void addMatch(Date date, String name, List<Step> steps, Disc[][] discs, Player playerRed, Player playerBlue, String result) {
-        Match match = new Match();
-        match.date = date;
-        match.steps = steps;
-        match.discs = discs;
-        match.playerRed = playerRed;
-        match.playerBlue = playerBlue;
-        match.result = result;
-        this.matchesList.add(match);
+    public void addMatch(Match match) {
+        matchesList.add(match);
     }
 
     // Method to verify if a player is already on the playersList
