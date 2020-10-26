@@ -26,11 +26,27 @@ public class MovementTest {
         Board board = Board.getDefaultBoard();
         
         board.move(1, Compass.EAST, 2);
+        board.print();
 
         board.move(3, Compass.EAST, 2);
-        
+        board.print();
         
         board.move(2, Compass.SOUTH, 3);
+        board.print();
+
         board.move(3, Compass.WEST, 5);
+        board.print();
+
+        board.move(5, Compass.EAST, 2);
+        board.print();
+        
+        board.move(5, Compass.WEST, 4);
+        board.print();
+        
+        board.move(4, Compass.EAST, 5);
+        board.print();
+        
+        board.move(2, Compass.NORTH, 3);
+        board.print();
     }
 }

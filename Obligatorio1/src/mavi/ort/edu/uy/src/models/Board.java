@@ -51,6 +51,18 @@ public class Board {
                 j = 1 + position - 1;
                 iTarget = i + movements;
                 
+                int amtDisks = 0;
+                
+                for(int q = 1; q <= 6; q++) {
+                    if(discs[q][j] != null) {
+                        amtDisks++;
+                    }
+                }
+                
+                if(movements + amtDisks > 6) {
+                    return null;
+                }
+                
                 boolean okay = true;
                 for(int q = 1; q <= iTarget; q++) {
                     if(discs[q][j] != null) {
@@ -59,11 +71,7 @@ public class Board {
                 }
                 
                 int l = 1;
-                while(!okay) {                    
-                    if(l >= 5) {
-                        return null;
-                    }
-                    
+                while(!okay) {
                     if(inVerticalBoundaries(i + l) && discs[i + l][j] != null) {
                         if(inVerticalBoundaries(i + l + 1) && discs[i + l + 1][j] != null) {
                             if(inVerticalBoundaries(i + l + 2) && discs[i + l + 2][j] != null) {
@@ -109,6 +117,18 @@ public class Board {
                 j = 1 + position - 1;
                 iTarget = i - movements;
                 
+                amtDisks = 0;
+                                    
+                for(int q = 1; q <= 6; q++) {
+                    if(discs[q][j] != null) {
+                        amtDisks++;
+                    }
+                }
+                
+                if(movements + amtDisks > 6) {
+                    return null;
+                }
+                
                 okay = true;
                 for(int q = 6; q >= iTarget; q--) {
                     if(discs[q][j] != null) {
@@ -117,11 +137,7 @@ public class Board {
                 }
                 
                 l = 1;
-                while(!okay) {                    
-                    if(l >= 5) {
-                        return null;
-                    }
-                    
+                while(!okay) {
                     if(inVerticalBoundaries(i - l) && discs[i - l][j] != null) {
                         if(inVerticalBoundaries(i - l - 1) && discs[i - l - 1][j] != null) {
                             if(inVerticalBoundaries(i - l - 2) && discs[i - l - 2][j] != null) {
@@ -168,6 +184,19 @@ public class Board {
                 j = 0;
                 int jTarget = j + movements;
                 
+                amtDisks = 0;
+                                    
+                for(int q = 1; q <= 6; q++) {
+                    if(discs[i][q] != null) {
+                        amtDisks++;
+                    }
+                }
+                
+                if(movements + amtDisks > 6) {
+                    return null;
+                }
+                
+                
                 okay = true;
                 for(int q = 1; q <= jTarget; q++) {
                     if(discs[i][q] != null) {
@@ -176,11 +205,7 @@ public class Board {
                 }
                 
                 l = 1;
-                while(!okay) {                    
-                    if(l >= 5) {
-                        return null;
-                    }
-                    
+                while(!okay) {
                     if(inHorizontalBoundaries(j + l) && discs[i][j + l] != null) {
                         if(inHorizontalBoundaries(j + l + 1) && discs[i][j + l + 1] != null) {
                             if(inHorizontalBoundaries(j + l + 2) && discs[i][j + l + 2] != null) {
@@ -226,6 +251,18 @@ public class Board {
                 j = 7;
                 jTarget = j - movements;
                 
+                amtDisks = 0;
+                                    
+                for(int q = 1; q <= 6; q++) {
+                    if(discs[i][q] != null) {
+                        amtDisks++;
+                    }
+                }
+                
+                if(movements + amtDisks > 6) {
+                    return null;
+                }
+                
                 okay = true;
                 for(int q = 6; q >= jTarget; q--) {
                     if(discs[i][q] != null) {
@@ -234,12 +271,7 @@ public class Board {
                 }
                 
                 l = 1;
-                while(!okay) {                    
-                    // TODO: Fix limits
-                    if(l >= 6) {
-                        return null;
-                    }
-                    
+                while(!okay) {
                     if(inHorizontalBoundaries(j - l) && discs[i][j - l] != null) {
                         if(inHorizontalBoundaries(j - l - 1) && discs[i][j - l - 1] != null) {
                             if(inHorizontalBoundaries(j - l - 2) && discs[i][j - l - 2] != null) {
