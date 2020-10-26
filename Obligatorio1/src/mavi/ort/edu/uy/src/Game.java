@@ -11,6 +11,7 @@ import java.util.Scanner;
 import mavi.ort.edu.uy.src.models.Board;
 import mavi.ort.edu.uy.src.models.Compass;
 import mavi.ort.edu.uy.src.models.Disc;
+import mavi.ort.edu.uy.src.models.Match;
 import mavi.ort.edu.uy.src.utils.Wrapper;
 import mavi.ort.edu.uy.src.models.Player;
 import mavi.ort.edu.uy.src.models.Step;
@@ -38,6 +39,8 @@ public class Game {
         Player testPlayerB = new Player("Roberto", 25);
         playerList.add(testPlayerA);
         playerList.add(testPlayerB);
+        
+        ArrayList<Match> matchesList = persistence.getMatches();
         while (option != 4) {
             System.out.println("\n-- Grupos --");
             System.out.println("1- Agregar jugador");
@@ -159,10 +162,11 @@ public class Game {
                                 switch (option) {
                                     case 1:
                                         end = true;
-                                        step.movementDescription = "El jugador " + colorText + " ha aceptado la petición del jugador " + notCurrPlayer;
-                                        step.board = board;
+                                        step.setMovementDescription("El jugador " + colorText + " ha aceptado la petición del jugador " + notCurrPlayer);
+                                        step.setBoard(board);
                                         steps.add(step);
-                                        persistence.addMatch(now, matchName, steps, initialBoard, redPlayer, bluePlayer, "El ganado es <GANADOR>");
+                                        Match match = new Match(now, matchName, steps, initialBoard, redPlayer, bluePlayer, "El ganado es <GANADOR>");
+                                        persistence.addMatch(match);
                                         continue;
                                     case 2:
                                         solicitedEnd = false;
@@ -175,8 +179,8 @@ public class Game {
                             String strInput = input.nextLine();
                             
                             if (strInput.equalsIgnoreCase("P")) {
-                                step.movementDescription = "El jugador " + colorText + " ha pasado de turno.";
-                                step.board = board;
+                                step.setMovementDescription("El jugador " + colorText + " ha pasado de turno.");
+                                step.setBoard(board);
                                 steps.add(step);
                                 System.out.println("Pasando turno.");
                                 turn++;
@@ -184,8 +188,8 @@ public class Game {
                             }
                             
                             if (strInput.equalsIgnoreCase("F")) {
-                                step.movementDescription = "El jugador " + colorText + " ha pasado de turno.";
-                                step.board = board;
+                                step.setMovementDescription("El jugador " + colorText + " ha pasado de turno.");
+                                step.setBoard(board);
                                 steps.add(step);
                                 solicitedEnd = true;
                                 turn++;
@@ -225,8 +229,8 @@ public class Game {
                             }
 
                             board.move(position, compass, movements);
-                            step.movementDescription = "El jugador " + colorText + " ha hecho el movimiento " + tokens[0] + " " + tokens[1] + " " + tokens[2];
-                            step.board = board;
+                            step.setMovementDescription("El jugador " + colorText + " ha hecho el movimiento " + tokens[0] + " " + tokens[1] + " " + tokens[2]);
+                            step.setBoard(board);
                             steps.add(step);
                             turn++;
                         } while (end == false);
@@ -237,6 +241,12 @@ public class Game {
                     break;
                 case 3:
                     System.out.println("\nReplicar partida");
+                    ArrayList<Match> matches = persistence.getMatches();
+                    if(matches.size() > 0){
+                    
+                    }else{
+                        System.out.println("\nDebe de existir almenos una partida para poder utilizar la funcionalidad 'Replicar partida'");
+                    }
                     break;
                 case 4:
                     System.out.println("\nEstá seguro que desea salir?");
