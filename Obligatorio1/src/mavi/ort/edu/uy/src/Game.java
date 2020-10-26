@@ -69,7 +69,7 @@ public class Game {
                             System.out.println("["+(i + 1)+ "]" + " Jugador: " + (player.getName()) + " Años: " + player.getAge());
                         }
 
-                        option = Wrapper.validateNumber("Seleccione el jugador Rojo", "Solo el ingreso de números es permitido");
+                        option = Wrapper.validateNumber("Seleccione el jugador [ROJO]", "Solo el ingreso de números es permitido");
 
                         if (option > players.length) {
                             System.out.println("Debe elegir un jugador dentro de la lista");
@@ -89,7 +89,7 @@ public class Game {
                             System.out.println("["+(i + 1)+ "]" + " Jugador: " + (player.getName()) + " Años: " + player.getAge());
                         }
 
-                        option = Wrapper.validateNumber("Seleccione el jugador Azul", "Solo el ingreso de números es permitido");
+                        option = Wrapper.validateNumber("Seleccione el jugador [AZUL]", "Solo el ingreso de números es permitido");
 
                         if (option > players.length || option == excludedOption) {
                             System.out.println("Debe elegir un jugador dentro de la lista");
@@ -241,11 +241,10 @@ public class Game {
                     break;
                 case 3:
                     System.out.println("\nReplicar partida");
-                    ArrayList<Match> matches = persistence.getMatches();
                     Match matchToReplicate = null;
-                    if(matches.size() > 0){
-                        for(int i = 0; i < matches.size(); i++){
-                            matchToReplicate = matches.get(i);
+                    if(matchesList.size() > 0){
+                        for(int i = 0; i < matchesList.size(); i++){
+                            matchToReplicate = matchesList.get(i);
                             System.out.println("["+(i+1)+"]"+" Nombre: " +matchToReplicate.getName() +"Hora/Fecha de juego: "+matchToReplicate.getDate());
                         }
                     
