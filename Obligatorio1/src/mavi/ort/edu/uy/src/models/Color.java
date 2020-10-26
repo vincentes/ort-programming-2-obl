@@ -20,6 +20,14 @@ public enum Color {
         this.consoleColor = consoleColor;
     }
 
+    public Color getInverse() {
+        switch(this) {
+            case RED: return BLUE;
+            case BLUE: return RED;
+        }
+        return null;
+    }
+    
     /**
      * @return the consoleColor
      */

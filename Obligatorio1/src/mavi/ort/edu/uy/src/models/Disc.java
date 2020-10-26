@@ -12,11 +12,9 @@ package mavi.ort.edu.uy.src.models;
 public class Disc {
     private Color color;
     private Player player;
-    private double identity;
 
     public Disc(Color color) {
         this.color = color;
-        this.identity = 100000 * Math.random();
     }
 
     public Disc() {
@@ -25,14 +23,6 @@ public class Disc {
        
     public String getConsoleColor() {
         return color.getConsoleColor();
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-        if(this.identity == ((Disc) o).identity) {
-            return true;
-        }
-        return false;
     }
     
     /**

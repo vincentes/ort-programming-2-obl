@@ -5,7 +5,9 @@
  */
 package mavi.ort.edu.uy.src.models;
 
+import static java.lang.Integer.max;
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 import mavi.ort.edu.uy.src.constants.ConsoleColor;
 import mavi.ort.edu.uy.src.utils.PrettyPrint;
 
@@ -374,6 +376,79 @@ public class Board {
                     } else if(j == discs[i].length - 1) {
                         discs[i][j] = randomDisc();
                     }
+                }
+            }
+        }
+        
+        for(int j = 1; j < discs[0].length - 2 - 1; j++) {
+            Disc disc = discs[0][j];
+            Disc nextDisc = discs[0][j + 1];
+            Disc otherDisc = discs[0][j + 2];
+
+            if(disc.getColor() == nextDisc.getColor() && nextDisc.getColor() == otherDisc.getColor()) {
+                fixColor();
+            }
+        }
+        
+        for(int j = 1; j < discs[7].length - 2 - 1; j++) {
+            Disc disc = discs[7][j];
+            Disc nextDisc = discs[7][j + 1];
+            Disc otherDisc = discs[7][j + 2];
+
+            if(disc.getColor() == nextDisc.getColor() && nextDisc.getColor() == otherDisc.getColor()) {
+                int randomNum = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                switch(randomNum) {
+                    case 1:
+                        disc.setColor(disc.getColor().getInverse());
+                        break;
+                    case 2:
+                        nextDisc.setColor(disc.getColor().getInverse());
+                        break;
+                    case 3:
+                        nextDisc.setColor(disc.getColor().getInverse());
+                        break;
+                }
+            }
+        }
+        
+        for(int j = 1; j < discs[0].length - 2 - 1; j++) {
+            Disc disc = discs[j][0];
+            Disc nextDisc = discs[j + 1][0];
+            Disc otherDisc = discs[j + 2][0];
+
+            if(disc.getColor() == nextDisc.getColor() && nextDisc.getColor() == otherDisc.getColor()) {
+                int randomNum = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                switch(randomNum) {
+                    case 1:
+                        disc.setColor(disc.getColor().getInverse());
+                        break;
+                    case 2:
+                        nextDisc.setColor(disc.getColor().getInverse());
+                        break;
+                    case 3:
+                        nextDisc.setColor(disc.getColor().getInverse());
+                        break;
+                }
+            }
+        }
+        
+        for(int j = 1; j < discs[0].length - 2 - 1; j++) {
+            Disc disc = discs[j][7];
+            Disc nextDisc = discs[j + 1][7];
+            Disc otherDisc = discs[j + 2][7];
+
+            if(disc.getColor() == nextDisc.getColor() && nextDisc.getColor() == otherDisc.getColor()) {
+                int randomNum = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                switch(randomNum) {
+                    case 1:
+                        disc.setColor(disc.getColor().getInverse());
+                        break;
+                    case 2:
+                        nextDisc.setColor(disc.getColor().getInverse());
+                        break;
+                    case 3:
+                        nextDisc.setColor(disc.getColor().getInverse());
+                        break;
                 }
             }
         }
