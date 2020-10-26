@@ -97,10 +97,12 @@ public class Board {
                             okay = false;
                         }
                     }
+                    // print();
                 }
                 
                 discs[iTarget][j] = discs[i][j];
-                discs[i][j] = null;                
+                discs[i][j] = null;    
+                // print();
                 break;
             case NORTH:
                 i = 7;
@@ -222,7 +224,7 @@ public class Board {
 
                 i = 1 + position - 1;
                 j = 7;
-                jTarget = j + movements;
+                jTarget = j - movements;
                 
                 okay = true;
                 for(int q = 6; q >= jTarget; q--) {
@@ -233,7 +235,8 @@ public class Board {
                 
                 l = 1;
                 while(!okay) {                    
-                    if(l >= 5) {
+                    // TODO: Fix limits
+                    if(l >= 6) {
                         return null;
                     }
                     
@@ -265,15 +268,17 @@ public class Board {
                     l++;
                     
                     okay = true;
-                    for(int q = 1; q <= jTarget; q++) {
+                    for(int q = 6; q >= jTarget; q--) {
                         if(discs[i][q] != null) {
                             okay = false;
                         }
                     }
+                    // print();
                 }
                 
                 discs[i][jTarget] = discs[i][j];
                 discs[i][j] = null;
+                //print();
                 break;
         }
         
@@ -339,19 +344,19 @@ public class Board {
                     }
                     
                     if(j % 2 == 0) {
-                        newDisc.setColor(Color.RED);
+                        newDisc.setColor(Color.BLUE);
                         discs[i][j] = newDisc;
                     } else {
-                        newDisc.setColor(Color.BLUE);
+                        newDisc.setColor(Color.RED);
                         discs[i][j] = newDisc;
                     }
                 } else {
                     if(j == 0) {
                         if(i % 2 == 0) {
-                            newDisc.setColor(Color.BLUE);
+                            newDisc.setColor(Color.RED);
                             discs[i][j] = newDisc;
                         } else {
-                            newDisc.setColor(Color.RED);
+                            newDisc.setColor(Color.BLUE);
                             discs[i][j] = newDisc;
                         }
                     } else if(j == discs[i].length - 1) {

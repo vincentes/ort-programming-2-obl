@@ -23,15 +23,14 @@ public class MovementTest {
         redDisc.setColor(Color.RED);
 
         
-        Board board = new Board();
-        // board.setDiscs(Board.getDefaultBoard());
+        Board board = Board.getDefaultBoard();
+        
         board.move(1, Compass.EAST, 2);
 
-        board.move(2, Compass.EAST, 2);
+        board.move(3, Compass.EAST, 2);
         
         
-        board.move(2, Compass.SOUTH, 4);
-
-        Board.print(board.getDiscs());
+        board.move(2, Compass.SOUTH, 3);
+        board.move(3, Compass.WEST, 5);
     }
 }

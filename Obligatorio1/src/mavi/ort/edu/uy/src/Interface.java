@@ -6,6 +6,9 @@ import mavi.ort.edu.uy.src.models.Disc;
 import mavi.ort.edu.uy.src.models.Match;
 import mavi.ort.edu.uy.src.models.Player;
 import mavi.ort.edu.uy.src.models.ResultCode;
+import java.util.Date;
+import java.util.List;
+import mavi.ort.edu.uy.src.models.Step;
 
 /**
  *
@@ -15,7 +18,6 @@ public class Interface {
 
     private ArrayList<Player> playersList;
     private ArrayList<Match> matchesList;
-    
 
     public Interface() {
         playersList = new ArrayList<>();
@@ -28,24 +30,34 @@ public class Interface {
     public ArrayList<Player> getPlayersList() {
         return playersList;
     }
-    
+
     public ArrayList<Match> getMatches() {
         return matchesList;
     }
-    
+
+    public void addMatch(Date date, String name, List<Step> steps, Player playerRed, Player playerBlue, String result) {
+        Match match = new Match();
+        match.date = date;
+        match.steps = steps;
+        match.playerRed = playerRed;
+        match.playerBlue = playerBlue;
+        match.result = result;
+        this.matchesList.add(match);
+    }
+
     // Method to verify if a player is already on the playersList
-     public boolean validatePlayerExistence(String name){
+    public boolean validatePlayerExistence(String name) {
         boolean isPlayerPresent = false;
         for (Player p : playersList) {
-            if(p.getName().equals(name)){
+            if (p.getName().equals(name)) {
                 isPlayerPresent = true;
             }
         }
         return isPlayerPresent;
     }
-     
-     // This method returns the ResultCode from a discs matrix
-       public static ResultCode getWinner(Disc[][] discs) {
+
+    // This method returns the ResultCode from a discs matrix
+    public static ResultCode getWinner(Disc[][] discs) {
         String finalResult = "";
         String finalResultAux = "";
         for (int x = 1; x <= 6; x++) {
@@ -76,7 +88,7 @@ public class Interface {
 
     /*This method returns the intersection of a given adjacentes position String 
       for example let's say that the position 11 has the following adjacent positions 11 21 32 (this String is a valid input)
-    */
+     */
     public static String adjacentsIntersection(String adjacentsPositions, String newAdjacentsPositions) {
         String[] currencies = newAdjacentsPositions.split(" ");
         String adjacentsIntersection = adjacentsPositions;
@@ -111,7 +123,7 @@ public class Interface {
         }
         return adjacentsPositions;
     }
-    
+
     // Method to return the ResultCode (PLAYER_RED/PLAYER_BLUE/DRAW) from a given discs matrix and a given finalResult String. 
     public static ResultCode defineWinnerFromResults(Disc[][] discs, String finalResult) {
         ResultCode result = ResultCode.DRAW;
@@ -158,6 +170,5 @@ public class Interface {
         }
         return result;
     }
-
 
 }

@@ -13,6 +13,10 @@ import java.util.Scanner;
  */
 public class Wrapper {
 
+    public static boolean isValidNumber(String numberStr) {
+        return numberStr.chars().allMatch(Character::isDigit);
+    }
+    
     public static int validateNumber(String inputMessage, String warningMessage) {
         Scanner input = new Scanner(System.in);
         int inputInt = 0;

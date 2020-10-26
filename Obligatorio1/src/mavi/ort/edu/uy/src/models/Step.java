@@ -11,4 +11,5 @@ package mavi.ort.edu.uy.src.models;
  */
 public class Step {
     public Board board;
+    public String movementDescription;
 }
