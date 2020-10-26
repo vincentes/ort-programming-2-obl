@@ -9,7 +9,7 @@ import mavi.ort.edu.uy.src.constants.ConsoleColor;
 
 /**
  *
- * @author vicentebermudez
+ * @authors Vicente Bermúdez - Matías Sallé
  */
 public enum Color {
     RED(ConsoleColor.RED), BLUE(ConsoleColor.BLUE);

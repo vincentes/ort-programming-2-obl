@@ -161,7 +161,7 @@ public class Game {
                             do {
                                 step = new Step();
                                 board.print();
-
+                                
                                 String colorText = "";
                                 if (turn % 2 == 0) {
                                     colorText = "AZUL";

@@ -7,7 +7,7 @@ package mavi.ort.edu.uy.src.models;
 
 /**
  *
- * @author vicentebermudez
+ * @authors Vicente Bermúdez - Matías Sallé
  */
 public class Disc {
     private Color color;

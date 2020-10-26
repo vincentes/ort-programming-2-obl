@@ -11,7 +11,7 @@ import mavi.ort.edu.uy.src.utils.Wrapper;
 
 /**
  *
- * @author matiassalle
+ * @authors Vicente Bermúdez - Matías Sallé
  */
 public class Interface {
 

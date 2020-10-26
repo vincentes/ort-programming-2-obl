@@ -15,7 +15,7 @@ import mavi.ort.edu.uy.src.utils.PrettyPrint;
 
 /**
  *
- * @author vicentebermudez
+ * @authors Vicente Bermúdez - Matías Sallé
  */
 public class Board {
 

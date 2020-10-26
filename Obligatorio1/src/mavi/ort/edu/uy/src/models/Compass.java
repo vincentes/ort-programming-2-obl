@@ -7,7 +7,7 @@ package mavi.ort.edu.uy.src.models;
 
 /**
  *
- * @author vicentebermudez
+ * @authors Vicente Bermúdez - Matías Sallé
  */
 public enum Compass {
     NORTH, WEST, SOUTH, EAST

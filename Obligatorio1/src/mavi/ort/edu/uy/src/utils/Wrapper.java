@@ -5,14 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import mavi.ort.edu.uy.src.models.Disc;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
- * @author matiassalle
+ * @authors Vicente Bermúdez - Matías Sallé
  */
 public class Wrapper {
 

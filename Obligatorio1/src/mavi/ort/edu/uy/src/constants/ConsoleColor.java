@@ -7,7 +7,7 @@ package mavi.ort.edu.uy.src.constants;
 
 /**
  *
- * @author vicentebermudez
+ * @authors Vicente Bermúdez - Matías Sallé
  */
 public class ConsoleColor {
     public static final String RESET = "\033[0m";  // Text Reset

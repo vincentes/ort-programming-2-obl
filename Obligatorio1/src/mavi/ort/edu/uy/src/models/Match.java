@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author vicentebermudez
+ * @authors Vicente Bermúdez - Matías Sallé
  */
 public class Match {
 
