@@ -30,6 +30,7 @@ public class Interface {
         return matchesList;
     }
     
+    // Method to verify if a player is already on the playersList
      public boolean validatePlayerExistence(String name){
         boolean isPlayerPresent = false;
         for (Player p : playersList) {
