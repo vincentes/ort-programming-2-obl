@@ -35,10 +35,11 @@ public class Interface {
         return matchesList;
     }
 
-    public void addMatch(Date date, String name, List<Step> steps, Player playerRed, Player playerBlue, String result) {
+    public void addMatch(Date date, String name, List<Step> steps, Disc[][] discs, Player playerRed, Player playerBlue, String result) {
         Match match = new Match();
         match.date = date;
         match.steps = steps;
+        match.discs = discs;
         match.playerRed = playerRed;
         match.playerBlue = playerBlue;
         match.result = result;
@@ -170,5 +171,5 @@ public class Interface {
         }
         return result;
     }
-
+    
 }

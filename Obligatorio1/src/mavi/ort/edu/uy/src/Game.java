@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Scanner;
 import mavi.ort.edu.uy.src.models.Board;
 import mavi.ort.edu.uy.src.models.Compass;
+import mavi.ort.edu.uy.src.models.Disc;
 import mavi.ort.edu.uy.src.utils.Wrapper;
 import mavi.ort.edu.uy.src.models.Player;
 import mavi.ort.edu.uy.src.models.Step;
@@ -54,7 +55,7 @@ public class Game {
                     System.out.println("\nJugar grupos ");
                     
                     Date now = new Date();
-                    String matchName = input.nextLine();
+                    String matchName = Wrapper.validateString("Ingrese el nombre de la partida:", "El nombre de la partida solo puede contener letras y números");
                     ArrayList<Step> steps = new ArrayList<Step>();
                     
                     if (playerList.size() >= 2) {
@@ -104,13 +105,16 @@ public class Game {
                         while (option > 3 || option < 1) {
                             option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido.");
                         }
+                        Disc[][] initialBoard = null;
 
                         switch (option) {
                             case 1:
                                 board = Board.getDefaultBoard();
+                                initialBoard = board.getDiscs();
                                 break;
                             case 2:
                                 board = Board.getRandomBoard();
+                                initialBoard = board.getDiscs();
                                 break;
                             case 3:
                                 continue;
@@ -158,7 +162,7 @@ public class Game {
                                         step.movementDescription = "El jugador " + colorText + " ha aceptado la petición del jugador " + notCurrPlayer;
                                         step.board = board;
                                         steps.add(step);
-                                        persistence.addMatch(now, matchName, steps, redPlayer, bluePlayer, "El ganado es <GANADOR>");
+                                        persistence.addMatch(now, matchName, steps, initialBoard, redPlayer, bluePlayer, "El ganado es <GANADOR>");
                                         continue;
                                     case 2:
                                         solicitedEnd = false;

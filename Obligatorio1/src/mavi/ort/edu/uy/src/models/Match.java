@@ -16,6 +16,7 @@ public class Match {
     public Date date;
     public String name;
     public List<Step> steps;
+    public Disc[][] discs; 
     public Player playerRed;
     public Player playerBlue;
     public String result;
