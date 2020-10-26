@@ -71,7 +71,7 @@ public class Game {
                         }
 
                         option = Wrapper.validateNumber("Seleccione el jugador [ROJO]", "Solo el ingreso de números es permitido");
-                        
+
                         if (option > players.length) {
                             System.out.println("Debe elegir un jugador dentro de la lista");
                             continue;
@@ -109,7 +109,7 @@ public class Game {
                         while (option > 3 || option < 1) {
                             option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido");
                         }
-                        
+
                         Step step = new Step();
                         switch (option) {
                             case 1:
@@ -258,9 +258,24 @@ public class Game {
                         matchToReplicate = matchesList.get(option - 1);
 
                         List<Step> stepsToReplicate = matchToReplicate.getSteps();
+                        Board replicatedBoard = null;
+                        Disc discs[][] = null;
 
-                        Board replicatedBoard = stepsToReplicate.get(0).getBoard();
-                        replicatedBoard.print();
+                        for (int i = 0; i < stepsToReplicate.size(); i++) {
+                            replicatedBoard = stepsToReplicate.get(i).getBoard();
+                            System.out.println("--------------------");
+                            System.out.println(stepsToReplicate.get(i).getMovementDescription());
+                            if (Wrapper.areDifferent(stepsToReplicate.get(i).getBoard().getDiscs(), discs)) {
+                                System.out.println("--------------------");
+                                replicatedBoard.print();
+                                System.out.println("--------------------");
+                            }
+                            discs = stepsToReplicate.get(i).getBoard().getDiscs();
+                            String opt = Wrapper.validateString("\nPresione X para continuar | Cualquier otra tecla para finalizar\nDesea seguir?", "Solo el ingreso de números es permitido");
+                            if(!opt.toLowerCase().equals("x")){
+                                break;
+                            }
+                        }
 
                     } else {
                         System.out.println("\nDebe de existir almenos una partida para poder utilizar la funcionalidad 'Replicar partida'");
