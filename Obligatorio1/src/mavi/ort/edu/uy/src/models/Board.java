@@ -5,6 +5,7 @@
  */
 package mavi.ort.edu.uy.src.models;
 
+import java.util.Arrays;
 import mavi.ort.edu.uy.src.constants.ConsoleColor;
 import mavi.ort.edu.uy.src.utils.PrettyPrint;
 
@@ -26,9 +27,7 @@ public class Board {
     public Board copyBoard() {
         Disc[][] discsCopy = new Disc[8][8];
         for(int i = 0; i < discsCopy.length; i++) {
-            for(int j = 0; j < discsCopy[i].length; j++) {
-                discsCopy[i][j] = discs[i][j];
-            }
+            discsCopy[i] = Arrays.copyOf(discs[i], discs[i].length);
         }
         return new Board(discsCopy);
     }
