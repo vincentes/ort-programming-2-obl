@@ -54,7 +54,7 @@ public class Game {
             switch (option) {
                 case 1:
                     System.out.println("\nAgregar jugador");
-                    addPlayer();
+                    persistence.addPlayerFunctionality();
                     break;
                 case 2:
                     System.out.println("\nJugar grupos ");
@@ -87,196 +87,202 @@ public class Game {
                                 continue;
                             }
                             inputFinished = true;
-                        }
 
-                        redPlayer = players[option - 1];
-                        players[option - 1] = null;
-                        int excludedOption = option;
+                            option = Wrapper.validateNumber("Seleccione el jugador [ROJO]", "Solo el ingreso de números es permitido");
 
-                        Player bluePlayer = null;
-                        for (int i = 0; i < players.length; i++) {
-                            if (players[i] == null) {
-                                continue;
-                            }
-                            Player player = players[i];
-                            System.out.println("[" + (i + 1) + "]" + " Jugador: " + (player.getName()) + " Años: " + player.getAge());
-                        }
-
-                        System.out.println("Seleccione el jugador [AZUL]");
-                        optionStr = input.nextLine();
-                        inputFinished = false;
-                        while (inputFinished) {
-                            if (!Wrapper.isValidNumber(optionStr)) {
-                                System.out.println("Solo el ingreso de números es permitido.");
-                                optionStr = input.nextLine();
-                            }
-
-                            option = Integer.parseInt(optionStr);
-                            if (option > players.length || option == excludedOption) {
+                            if (option > players.length) {
                                 System.out.println("Debe elegir un jugador dentro de la lista");
                                 continue;
                             }
-                            inputFinished = true;
-                        }
 
-                        bluePlayer = players[option - 1];
+                            redPlayer = players[option - 1];
+                            players[option - 1] = null;
+                            int excludedOption = option;
 
-                        System.out.println("1 - Discos normales");
-                        System.out.println("2 - Discos aleatorios");
-                        System.out.println("3 - Cancelar");
-
-                        option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido");
-
-                        Board board = null;
-                        while (option > 3 || option < 1) {
-                            option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido");
-                        }
-
-                        Step step = new Step();
-                        switch (option) {
-                            case 1:
-                                board = Board.getDefaultBoard();
-                                step.setMovementDescription("Inicio de partida | Modo [DEFAULT]");
-                                step.setBoard(board.copyBoard());
-                                steps.add(step);
-                                break;
-                            case 2:
-                                board = Board.getRandomBoard();
-                                step.setMovementDescription("Inicio de partida | Modo [RANDOM]");
-                                step.setBoard(board.copyBoard());
-                                steps.add(step);
-                                break;
-                            case 3:
-                                continue;
-                        }
-
-                        boolean end = false;
-                        boolean solicitedEnd = false;
-                        Player playerCurr;
-                        int turn = 1;
-                        do {
-                            step = new Step();
-                            board.print();
-
-                            String colorText = "";
-                            if (turn % 2 == 0) {
-                                colorText = "AZUL";
-                                playerCurr = bluePlayer;
-                            } else {
-                                colorText = "ROJO";
-                                playerCurr = redPlayer;
+                            Player bluePlayer = null;
+                            for (int i = 0; i < players.length; i++) {
+                                if (players[i] == null) {
+                                    continue;
+                                }
+                                Player player = players[i];
+                                System.out.println("[" + (i + 1) + "]" + " Jugador: " + (player.getName()) + " Años: " + player.getAge());
                             }
 
-                            System.out.println("TURNO " + colorText);
-                            if (solicitedEnd) {
-                                String notCurrPlayer = "";
-                                if (colorText.equals("ROJO")) {
-                                    notCurrPlayer = "AZUL";
-                                } else {
-                                    notCurrPlayer = "ROJO";
-                                }
-                                System.out.println("El jugador " + notCurrPlayer + " propone terminar el juego. ¿Aceptar?");
-
-                                option = Wrapper.validateNumber("1 - SI\n2 - NO\n", "Debe ingresar un numero");
-
-                                while (option != 1 && option != 2) {
-                                    System.out.println("Opciones válidas: 1 o 2");
-                                    option = Wrapper.validateNumber("1 - SI\n2 - NO\n", "Debe ingresar un numero");
-                                }
-
-                                switch (option) {
-                                    case 1:
-                                        end = true;
-                                        step.setMovementDescription("El jugador " + colorText + " ha aceptado la petición del jugador " + notCurrPlayer);
-                                        step.setBoard(board.copyBoard());
-                                        steps.add(step);
-                                        match = new Match(currentTime, matchName, steps, redPlayer, bluePlayer, "El ganado es <GANADOR>");
-                                        persistence.addMatch(match);
-                                        continue;
-                                    case 2:
-                                        solicitedEnd = false;
-                                        System.out.println("Has rechazado la propuesta de terminar el juego");
-                                        break;
-                                }
-                            }
-
+                            System.out.println("Seleccione el jugador [AZUL]");
+                            optionStr = input.nextLine();
                             inputFinished = false;
-                            while (!inputFinished) {
-                                System.out.println("\nIntroduzca una acción");
-                                String strInput = input.nextLine();
-                                if (strInput.equalsIgnoreCase("P")) {
-                                    step.setMovementDescription("El jugador " + colorText + " ha pasado de turno");
-                                    step.setBoard(board.copyBoard());
-                                    steps.add(step);
-                                    System.out.println("Pasando turno.");
-                                    turn++;
-                                    continue;
+                            while (inputFinished) {
+                                if (!Wrapper.isValidNumber(optionStr)) {
+                                    System.out.println("Solo el ingreso de números es permitido.");
+                                    optionStr = input.nextLine();
                                 }
 
-                                if (strInput.equalsIgnoreCase("F")) {
-                                    step.setMovementDescription("El jugador " + colorText + " ha decidido terminar el juego");
-                                    step.setBoard(board.copyBoard());
-                                    steps.add(step);
-                                    solicitedEnd = true;
-                                    turn++;
+                                option = Integer.parseInt(optionStr);
+                                if (option > players.length || option == excludedOption) {
+                                    System.out.println("Debe elegir un jugador dentro de la lista");
                                     continue;
                                 }
-                                
-                                
-                                String[] tokens = strInput.split(" ");
-                                if (tokens.length != 3) {
-                                    // TODO: make input continue even if invalid input. fix this.
-                                    System.out.println("Debes introduccir una acción correcta");
-                                    System.out.println("Listado de posibilidaes:");
-                                    System.out.println("<Indice> <Movimiento (S, N, E, O)> <Cantidad de movimientos>");
-                                    System.out.println("P - Pasar turno");
-                                    System.out.println("F - Solicitar terminar partida");
-                                    continue;
-                                }
-                                
-                                String movementChar = tokens[1];
-                                if (movementChar.length() != 1 || (!movementChar.equalsIgnoreCase("S") && !movementChar.equalsIgnoreCase("N") && !movementChar.equalsIgnoreCase("E") && !movementChar.equalsIgnoreCase("O"))) {
-                                    System.out.println("Movimiento inválido. Debe ser del formato <Indice> <Movimiento (S, N, E, O)> <Cantidad de movimientos>");
-                                    continue;
-                                }
-
-                                int movements = Integer.parseInt(tokens[2]);
-                                int position = Integer.parseInt(tokens[0]);
-
-                                Compass compass = null;
-
-                                switch (movementChar.toUpperCase()) {
-                                    case "S":
-                                        compass = Compass.SOUTH;
-                                        break;
-                                    case "N":
-                                        compass = Compass.NORTH;
-                                        break;
-                                    case "O":
-                                        compass = Compass.WEST;
-                                        break;
-                                    case "E":
-                                        compass = Compass.EAST;
-                                        break;
-                                }
-                                
-                                board.move(position, compass, movements);
-                                String positionTok = tokens[0];
-                                String directionTok = tokens[1];
-                                String movementsTok = tokens[2];
-                                switch (positionTok) {
-                                    case "S":
-                                       // TODO
-                                       break;
-                                }
-                                step.setMovementDescription("El jugador " + colorText + " ha hecho el movimiento " + tokens[0] + " " + tokens[1] + " " + tokens[2]);
-                                step.setBoard(board.copyBoard());
-                                steps.add(step);
                                 inputFinished = true;
                             }
 
-                            turn++;
-                        } while (end == false);
+                            bluePlayer = players[option - 1];
+
+                            System.out.println("1 - Discos normales");
+                            System.out.println("2 - Discos aleatorios");
+                            System.out.println("3 - Cancelar");
+
+                            option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido");
+
+                            Board board = null;
+                            while (option > 3 || option < 1) {
+                                option = Wrapper.validateNumber("Seleccione el modo de juego", "Solo el ingreso de números es permitido");
+                            }
+
+                            Step step = new Step();
+                            switch (option) {
+                                case 1:
+                                    board = Board.getDefaultBoard();
+                                    step.setMovementDescription("Inicio de partida | Modo [DEFAULT]");
+                                    step.setBoard(board.copyBoard());
+                                    steps.add(step);
+                                    break;
+                                case 2:
+                                    board = Board.getRandomBoard();
+                                    step.setMovementDescription("Inicio de partida | Modo [RANDOM]");
+                                    step.setBoard(board.copyBoard());
+                                    steps.add(step);
+                                    break;
+                                case 3:
+                                    continue;
+                            }
+
+                            boolean end = false;
+                            boolean solicitedEnd = false;
+                            Player playerCurr;
+                            int turn = 1;
+                            do {
+                                step = new Step();
+                                board.print();
+
+                                String colorText = "";
+                                if (turn % 2 == 0) {
+                                    colorText = "AZUL";
+                                    playerCurr = bluePlayer;
+                                } else {
+                                    colorText = "ROJO";
+                                    playerCurr = redPlayer;
+                                }
+
+                                System.out.println("TURNO " + colorText);
+                                if (solicitedEnd) {
+                                    String notCurrPlayer = "";
+                                    if (colorText.equals("ROJO")) {
+                                        notCurrPlayer = "AZUL";
+                                    } else {
+                                        notCurrPlayer = "ROJO";
+                                    }
+                                    System.out.println("El jugador " + notCurrPlayer + " propone terminar el juego. ¿Aceptar?");
+
+                                    option = Wrapper.validateNumber("1 - SI\n2 - NO\n", "Debe ingresar un numero");
+
+                                    while (option != 1 && option != 2) {
+                                        System.out.println("Opciones válidas: 1 o 2");
+                                        option = Wrapper.validateNumber("1 - SI\n2 - NO\n", "Debe ingresar un numero");
+                                    }
+
+                                    switch (option) {
+                                        case 1:
+                                            end = true;
+                                            step.setMovementDescription("El jugador " + colorText + " ha aceptado la petición del jugador " + notCurrPlayer);
+                                            step.setBoard(board.copyBoard());
+                                            steps.add(step);
+                                            match = new Match(currentTime, matchName, steps, redPlayer, bluePlayer, "El ganado es <GANADOR>");
+                                            persistence.addMatch(match);
+                                            continue;
+                                        case 2:
+                                            solicitedEnd = false;
+                                            System.out.println("Has rechazado la propuesta de terminar el juego");
+                                            break;
+                                    }
+                                }
+
+                                inputFinished = false;
+                                while (!inputFinished) {
+                                    System.out.println("\nIntroduzca una acción");
+                                    String strInput = input.nextLine();
+                                    if (strInput.equalsIgnoreCase("P")) {
+                                        step.setMovementDescription("El jugador " + colorText + " ha pasado de turno");
+                                        step.setBoard(board.copyBoard());
+                                        steps.add(step);
+                                        System.out.println("Pasando turno.");
+                                        turn++;
+                                        continue;
+                                    }
+
+                                    if (strInput.equalsIgnoreCase("F")) {
+                                        step.setMovementDescription("El jugador " + colorText + " ha decidido terminar el juego");
+                                        step.setBoard(board.copyBoard());
+                                        steps.add(step);
+                                        solicitedEnd = true;
+                                        turn++;
+                                        continue;
+                                    }
+
+                                    String[] tokens = strInput.split(" ");
+                                    if (tokens.length != 3) {
+                                        // TODO: make input continue even if invalid input. fix this.
+                                        System.out.println("Debes introduccir una acción correcta");
+                                        System.out.println("Listado de posibilidaes:");
+                                        System.out.println("<Indice> <Movimiento (S, N, E, O)> <Cantidad de movimientos>");
+                                        System.out.println("P - Pasar turno");
+                                        System.out.println("F - Solicitar terminar partida");
+                                        continue;
+                                    }
+
+                                    String movementChar = tokens[1];
+                                    if (movementChar.length() != 1 || (!movementChar.equalsIgnoreCase("S") && !movementChar.equalsIgnoreCase("N") && !movementChar.equalsIgnoreCase("E") && !movementChar.equalsIgnoreCase("O"))) {
+                                        System.out.println("Movimiento inválido. Debe ser del formato <Indice> <Movimiento (S, N, E, O)> <Cantidad de movimientos>");
+                                        continue;
+                                    }
+
+                                    int movements = Integer.parseInt(tokens[2]);
+                                    int position = Integer.parseInt(tokens[0]);
+
+                                    Compass compass = null;
+
+                                    switch (movementChar.toUpperCase()) {
+                                        case "S":
+                                            compass = Compass.SOUTH;
+                                            break;
+                                        case "N":
+                                            compass = Compass.NORTH;
+                                            break;
+                                        case "O":
+                                            compass = Compass.WEST;
+                                            break;
+                                        case "E":
+                                            compass = Compass.EAST;
+                                            break;
+                                    }
+
+                                    board.move(position, compass, movements);
+                                    String positionTok = tokens[0];
+                                    String directionTok = tokens[1];
+                                    String movementsTok = tokens[2];
+                                    switch (positionTok) {
+                                        case "S":
+                                            // TODO
+                                            break;
+                                    }
+                                    step.setMovementDescription("El jugador " + colorText + " ha hecho el movimiento " + tokens[0] + " " + tokens[1] + " " + tokens[2]);
+                                    step.setBoard(board.copyBoard());
+                                    steps.add(step);
+                                    inputFinished = true;
+                                }
+
+                                turn++;
+                            } while (end == false);
+                        }
                     } else {
                         System.out.println("\nDeben de existir al menos dos jugadores en el sistema para poder jugar");
                     }
@@ -298,9 +304,24 @@ public class Game {
                         matchToReplicate = matchesList.get(option - 1);
 
                         List<Step> stepsToReplicate = matchToReplicate.getSteps();
+                        Board replicatedBoard = null;
+                        Disc discs[][] = null;
 
-                        Board replicatedBoard = stepsToReplicate.get(0).getBoard();
-                        replicatedBoard.print();
+                        for (int i = 0; i < stepsToReplicate.size(); i++) {
+                            replicatedBoard = stepsToReplicate.get(i).getBoard();
+                            System.out.println("--------------------");
+                            System.out.println(stepsToReplicate.get(i).getMovementDescription());
+                            if (Wrapper.areDifferent(stepsToReplicate.get(i).getBoard().getDiscs(), discs)) {
+                                System.out.println("--------------------");
+                                replicatedBoard.print();
+                                System.out.println("--------------------");
+                            }
+                            discs = stepsToReplicate.get(i).getBoard().getDiscs();
+                            String opt = Wrapper.validateString("\nPresione X para continuar | Cualquier otra tecla para finalizar\nDesea seguir?", "Solo el ingreso de números es permitido");
+                            if (!opt.toLowerCase().equals("x")) {
+                                break;
+                            }
+                        }
 
                     } else {
                         System.out.println("\nDebe de existir almenos una partida para poder utilizar la funcionalidad 'Replicar partida'");
@@ -321,27 +342,6 @@ public class Game {
                     continue;
             }
         }
-    }
-
-    public static void addPlayer() {
-        String name = "";
-        int age = 100;
-        boolean validatePlayerExistence = true;
-        while (validatePlayerExistence) {
-            name = Wrapper.validateString("Ingrese nombre:", "El nombre solo puede contener letras y números");
-            validatePlayerExistence = persistence.validatePlayerExistence(name);
-            if (validatePlayerExistence) {
-                System.out.println("\nEl jugador " + name + " ya existe en el sistema");
-            }
-        }
-        while (age >= 80 || age <= 12) {
-            age = Wrapper.validateNumber("Ingrese edad:", "Solo el ingreso de números es permitido");
-            if (age >= 80 || age <= 12) {
-                System.out.println("Rango de edad permitido [12 - 80]");
-            }
-        }
-        Player newPlayer = new Player(name, age);
-        persistence.addPlayer(newPlayer);
     }
 
 }
